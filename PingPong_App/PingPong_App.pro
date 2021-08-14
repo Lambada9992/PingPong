@@ -10,10 +10,16 @@ CONFIG += c++11
 
 SOURCES += \
     game.cpp \
-    main.cpp
+    main.cpp \
+    myserversocket.cpp \
+    mysocket.cpp \
+    sockethandler.cpp
 
 HEADERS += \
-    game.h
+    game.h \
+    myserversocket.h \
+    mysocket.h \
+    sockethandler.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
