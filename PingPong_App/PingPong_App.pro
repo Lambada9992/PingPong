@@ -1,8 +1,10 @@
 QT       += core gui
+QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
+CONFIG += console
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -11,15 +13,13 @@ CONFIG += c++11
 SOURCES += \
     game.cpp \
     main.cpp \
-    myserversocket.cpp \
-    mysocket.cpp \
-    sockethandler.cpp
+    sockethandler.cpp \
+    tcpserver.cpp
 
 HEADERS += \
     game.h \
-    myserversocket.h \
-    mysocket.h \
-    sockethandler.h
+    sockethandler.h \
+    tcpserver.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

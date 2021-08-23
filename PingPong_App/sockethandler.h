@@ -1,16 +1,25 @@
 #ifndef SOCKETHANDLER_H
 #define SOCKETHANDLER_H
 
-#include <QObject>
+#include <QThread>
+#include <QTcpSocket>
 
-class SocketHandler : public QObject
+class SocketHandler : public QThread
 {
     Q_OBJECT
+private:
+    qintptr socketDescriptor;
+    QTcpSocket *socket;
 public:
-    explicit SocketHandler(QObject *parent = nullptr);
+    SocketHandler(qintptr socketDescriptor, QObject *parent = nullptr);
+
+    void run() override;
 
 signals:
-
+    void error(QTcpSocket::SocketError socketerror);
+public slots:
+    void readyRead();
+    void disconnected();
 };
 
 #endif // SOCKETHANDLER_H
