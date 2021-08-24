@@ -9,10 +9,6 @@ int main(int argc, char *argv[])
 
     Game game;
 
-    TcpServer server;
-    server.startServer(1234);
-    server.close();
-
     return a.exec();
     //test2
 }
