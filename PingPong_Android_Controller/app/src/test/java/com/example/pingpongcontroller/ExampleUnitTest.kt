@@ -1,4 +1,4 @@
-package com.example.androidcontroller
+package com.example.pingpongcontroller
 
 import org.junit.Test
 
