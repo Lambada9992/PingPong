@@ -23,6 +23,7 @@ void SocketHandler::readyRead()
 {
     QByteArray data = socket->readAll();
     socket->write(data);
+    qDebug() << data;
     socket->flush();
 }
 
