@@ -12,12 +12,16 @@ CONFIG += console
 
 SOURCES += \
     game.cpp \
+    guiview.cpp \
     main.cpp \
+    mainmenuscene.cpp \
     sockethandler.cpp \
     tcpserver.cpp
 
 HEADERS += \
     game.h \
+    guiview.h \
+    mainmenuscene.h \
     sockethandler.h \
     tcpserver.h
 
