@@ -21,4 +21,4 @@ signals:
 
 };
 
-#endif // GUI_MAINMENUSCENE_H
+#endif // MAINMENUSCENE_H

@@ -11,10 +11,9 @@ class GuiView : public QGraphicsView
     Q_OBJECT
 private:
     Game *game;
-    MainMenuScene *a;
+    MainMenuScene *mainMenuScene;
 public:
     GuiView(Game& game,QWidget *parent = nullptr);
-    void doNothing();
 };
 
 #endif // GUIVIEW_H
