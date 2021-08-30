@@ -3,21 +3,21 @@
 
 #include <QPoint>
 
+class Game;
+
 class Paddle
 {
-public:
-    Paddle(int x, int y, int w, int h);
-
-    int getPositionX();
-    int getPositionY();
-    void move(int direction);
 private:
+    Game *game;
     QPoint position;
+    int size;
 
-    int widht;
-    int height;
+public:
+    Paddle(Game *game);
 
-    int speed;
+    void move();
+    QPoint getPosition() const;
+    void setPosition(const QPoint &value);
 
 };
 

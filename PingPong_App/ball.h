@@ -3,26 +3,27 @@
 
 #include <QPoint>
 
+class Game;
+
 class Ball
 {
-public:
-
-    Ball(int x, int y, int w, int h);
-
-    int getPositionX();
-    int getPositionY();
-    void move(int direction);
-
-
 private:
-
+    Game *game;
     QPoint position;
-
-    int widht;
-    int height;
-
+    QPointF velocity;
     int speed;
 
+
+public:
+
+    Ball(Game *game);
+
+    void move(double dt);
+
+    QPoint getPosition() const;
+    void setPosition(const QPoint &value);
+
+    void randomVelocity(double angle);
 
 };
 
