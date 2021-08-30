@@ -11,17 +11,21 @@ CONFIG += console
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ball.cpp \
     game.cpp \
     guiview.cpp \
     main.cpp \
     mainmenuscene.cpp \
+    paddle.cpp \
     sockethandler.cpp \
     tcpserver.cpp
 
 HEADERS += \
+    ball.h \
     game.h \
     guiview.h \
     mainmenuscene.h \
+    paddle.h \
     sockethandler.h \
     tcpserver.h
 
