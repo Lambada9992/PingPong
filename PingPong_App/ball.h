@@ -7,15 +7,21 @@ class Ball
 {
 public:
 
-    Ball();
+    Ball(int x, int y, int w, int h);
 
-    void getPositionX();
-    void getPositionY();
-    void move();
+    int getPositionX();
+    int getPositionY();
+    void move(int direction);
+
 
 private:
 
     QPoint position;
+
+    int widht;
+    int height;
+
+    int speed;
 
 
 };
