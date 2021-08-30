@@ -19,10 +19,6 @@ int main(int argc, char *argv[])
 //    TcpServer server;
 //    server.startServer(1234);
 
-    QRect t(0,800,800,800);
-
-    qDebug() << cos(M_PI * 4 );
-
     return a.exec();
     //test2
 }

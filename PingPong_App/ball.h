@@ -1,6 +1,8 @@
 #ifndef BALL_H
 #define BALL_H
 
+#include "paddle.h"
+
 #include <QPoint>
 
 class Game;
@@ -13,7 +15,6 @@ private:
     QPointF velocity;
     int speed;
 
-
 public:
 
     Ball(Game *game);
@@ -24,6 +25,9 @@ public:
     void setPosition(const QPoint &value);
 
     void randomVelocity(double angle);
+private:
+    double getAngle();
+    Paddle *findPaddle(int possitionX);
 
 };
 

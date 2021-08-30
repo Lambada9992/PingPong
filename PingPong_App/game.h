@@ -15,7 +15,7 @@ private:
     QRect board;
     bool isLive = false;
     Ball *ball;
-    QList<Paddle*> *padles;
+    QList<Paddle *> *padles;
     QPair<int,int> score;
 
 public:
@@ -25,6 +25,8 @@ public:
     void stopGame();
 
     QRect getBoard() const;
+
+    QList<Paddle *> *getPadles() const;
 
 private:
     void makeMoves(long double dt);

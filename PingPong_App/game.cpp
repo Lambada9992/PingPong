@@ -43,6 +43,11 @@ QRect Game::getBoard() const
     return board;
 }
 
+QList<Paddle *> *Game::getPadles() const
+{
+    return padles;
+}
+
 Game::Game():
     board(0,0,800,800)
 {

@@ -8,7 +8,7 @@ Ball::Ball(Game *game)
     this->game = game;
 }
 
-// TODO: Dodanie logi w przypadku uderzenia w Paddle
+// TODO: Dodanie logiki w przypadku uderzenia w Paddle lub score punktu
 void Ball::move(double dt)
 {
     if(dt <= 0) return;
