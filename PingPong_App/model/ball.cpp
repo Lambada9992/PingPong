@@ -8,48 +8,94 @@
 Ball::Ball(Game *game)
 {
     this->game = game;
-    this->speed = 3;
+    this->speed = 500; //how many pixels per sec
 }
 
 // TODO: Dodanie logiki w przypadku uderzenia w Paddle lub score punktu
 void Ball::move(double dt)
 {
-    this->position = (this->position + (this->velocity*dt)).toPoint();
-    qDebug() << velocity;
-    qDebug() << dt;
-    qDebug() << dt;
-    return;
+
+    //    qDebug() << "dt" << dt;
+    //    qDebug() << "speed" <<  speed;
+    //    qDebug() << "distance" <<  speed * dt;
 
     if(dt <= 0) return;
-    QPointF nextPossition = this->position * (this->speed*dt);// zle
-    if(this->game->getBoard().contains(nextPossition.toPoint())){// no hit
+
+    QPointF nextPossition = (this->position + (this->velocity*dt));
+    double nX = nextPossition.rx();
+    double nY = nextPossition.ry();
+
+    if(nX>0 && nY>0 && nX<game->getBoard().width()-1 && nY<game->getBoard().height()-1){
         this->position = nextPossition;
     }else {
-        if(abs(this->velocity.ry()) > abs(this->velocity.rx())){// wall hit //BEZ SENSU
-            double dtLeft;
-            QPoint hitPoint;
-            if(this->velocity.ry()>0){// upper wall hit
-                int mx = (this->game->getBoard().height() - this->position.ry()) * (nextPossition.rx() - this->position.rx())/(nextPossition.ry()-this->position.ry());
-                hitPoint = QPoint(this->position.rx()+mx,this->game->getBoard().height());
-                dtLeft = dt - (hitPoint - this->position).manhattanLength()/((double)speed);
-            }else{//down wall hit
-                int mx = this->position.ry() * (nextPossition.rx() - this->position.rx())/(this->position.ry()-nextPossition.ry());
-                hitPoint = QPoint(this->position.rx()+mx,0);
-                dtLeft = dt - (hitPoint - this->position).manhattanLength()/((double)speed);
-            }
-            this->position = hitPoint;
-            this->velocity.setY(-this->velocity.ry());
-            move(dtLeft);
-        }else{ //hit padle or score point
+        double vdtLeft = 0;
+        double hdtLeft = 0;
+        QPointF vHitPoint;
+        QPointF hHitPoint;
 
-            if(this->velocity.rx()>0){// prawo
-                Paddle paddle = *this->findPaddle(this->game->getBoard().width());
-            }else{// lewo
-                Paddle paddle = *this->findPaddle(0);
-            }
+        //vertical hit point
+        if(velocity.ry()>0){
+            double mx = (this->game->getBoard().height()-1 - this->position.ry()) * (nX - this->position.rx())/(nY-this->position.ry());
+            vHitPoint = QPointF(this->position.rx()+mx,this->game->getBoard().height()-1);
+            vdtLeft = dt - (vHitPoint - this->position).manhattanLength()/speed;
+        }else if(velocity.ry() != 0){
+            double mx = this->position.ry() * (nX - this->position.rx())/(this->position.ry()-nY);
+            vHitPoint = QPointF(this->position.rx()+mx,0);
+            vdtLeft = dt - (vHitPoint - this->position).manhattanLength()/speed;
+        }
+
+        //horizontal hit point
+        if(velocity.rx()>0){
+            double my = (nY-position.ry()) *(game->getBoard().width()-1-position.rx()) /(nX-position.rx());
+            hHitPoint = QPointF(game->getBoard().width()-1,this->position.ry()+my);
+            hdtLeft = dt - (hHitPoint - position).manhattanLength()/speed;
+        }else if (velocity.x() != 0){
+            double my = (nY-position.ry())*this->position.rx()/(position.rx()-nX);// y mx/x
+            hHitPoint = QPointF(0,this->position.ry()+my);
+            hdtLeft = dt - (hHitPoint - position).manhattanLength()/speed;
+        }
+
+        //Decyzja gdzie uderzyło
+        if(vdtLeft>hdtLeft){//uderzenie w pionie
+            this->position = vHitPoint;
+            this->velocity.setY(-this->velocity.ry());
+            move(vdtLeft);
+        }else{// uderzenie w poziomie
+            this->position = hHitPoint;
+            this->velocity.setX(-this->velocity.rx());
+            move(hdtLeft);
         }
 
     }
+
+
+
+    //    {
+    //            if(abs(this->velocity.ry()) > abs(this->velocity.rx())){// wall hit //BEZ SENSU
+    //                double dtLeft;
+    //                QPoint hitPoint;
+    //                if(this->velocity.ry()>0){// upper wall hit
+    //                    int mx = (this->game->getBoard().height() - this->position.ry()) * (nextPossition.rx() - this->position.rx())/(nextPossition.ry()-this->position.ry());
+    //                    hitPoint = QPoint(this->position.rx()+mx,this->game->getBoard().height());
+    //                    dtLeft = dt - (hitPoint - this->position).manhattanLength()/((double)speed);
+    //                }else{//down wall hit
+    //                    int mx = this->position.ry() * (nextPossition.rx() - this->position.rx())/(this->position.ry()-nextPossition.ry());
+    //                    hitPoint = QPoint(this->position.rx()+mx,0);
+    //                    dtLeft = dt - (hitPoint - this->position).manhattanLength()/((double)speed);
+    //                }
+    //                this->position = hitPoint;
+    //                this->velocity.setY(-this->velocity.ry());
+    //                move(dtLeft);
+    //            }else{ //hit padle or score point
+
+    //                if(this->velocity.rx()>0){// prawo
+    //                    Paddle paddle = *this->findPaddle(this->game->getBoard().width());
+    //                }else{// lewo
+    //                    Paddle paddle = *this->findPaddle(0);
+    //                }
+    //            }
+
+    //        }
 
 }
 
