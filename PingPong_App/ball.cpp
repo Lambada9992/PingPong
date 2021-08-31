@@ -2,21 +2,30 @@
 #include <math.h>
 #include <QRect>
 #include <game.h>
+#include <QDebug>
+#include <time.h>
 
 Ball::Ball(Game *game)
 {
     this->game = game;
+    this->speed = 3;
 }
 
 // TODO: Dodanie logiki w przypadku uderzenia w Paddle lub score punktu
 void Ball::move(double dt)
 {
+    this->position = (this->position + (this->velocity*dt)).toPoint();
+    qDebug() << velocity;
+    qDebug() << dt;
+    qDebug() << dt;
+    return;
+
     if(dt <= 0) return;
-    QPoint nextPossition = this->position * (this->speed*dt);
-    if(this->game->getBoard().contains(nextPossition)){// no hit
+    QPointF nextPossition = this->position * (this->speed*dt/500);// zle
+    if(this->game->getBoard().contains(nextPossition.toPoint())){// no hit
         this->position = nextPossition;
     }else {
-        if(abs(this->velocity.ry()) > abs(this->velocity.rx())){// wall hit
+        if(abs(this->velocity.ry()) > abs(this->velocity.rx())){// wall hit //BEZ SENSU
             double dtLeft;
             QPoint hitPoint;
             if(this->velocity.ry()>0){// upper wall hit
@@ -44,7 +53,7 @@ void Ball::move(double dt)
 
 }
 
-QPoint Ball::getPosition() const
+QPointF Ball::getPosition() const
 {
     return position;
 }
@@ -57,12 +66,12 @@ void Ball::setPosition(const QPoint &value)
 
 void Ball::randomVelocity(double angle)
 {
-    srand(NULL);
+    srand(time(0));
     double randAngle =  -angle + ((double) rand() / (RAND_MAX))*(angle*2); //random angle from <-angle : +angle>
     int direction = ((rand()%2)*2)-1; // random 1 or -1
-
     double xv = speed * cos(randAngle*M_PI/180) * direction;
     double yv = speed * sin(randAngle*M_PI/180) * direction;
+
 
     velocity.setX(xv);
     velocity.setY(yv);

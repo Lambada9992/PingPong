@@ -1,0 +1,52 @@
+Index: ../PingPong_App/mainmenuscene.cpp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#include \"mainmenuscene.h\"\r\n#include \"guiview.h\"\r\n\r\n#include <QGraphicsTextItem>\r\n#include <QPushButton>\r\n\r\nMainMenuScene::MainMenuScene(Game &game,GuiView *parent)\r\n    : QGraphicsScene(reinterpret_cast<QObject *>(parent))\r\n{\r\n    this->game = &game;\r\n    this->parent = parent;\r\n    ///\r\n    int m_scale = 15;\r\n    setSceneRect(0,0,43*m_scale,33*m_scale);\r\n\r\n    //bg patern and color\r\n    setBackgroundBrush(QBrush(Qt::darkGray,Qt::SolidPattern));\r\n\r\n    int x,y,w,h;\r\n\r\n    //title \"PingPong\"\r\n    QGraphicsTextItem *title = new QGraphicsTextItem(QString(\"PingPong\"));\r\n    QFont titleFont(\"comic sans\",m_scale*4,QFont::Bold);\r\n    title->setFont(titleFont);\r\n    x = this->width()/2 - title->boundingRect().width()/2;\r\n    y = m_scale;\r\n    title->setPos(x,y);\r\n    addItem(title);\r\n\r\n\r\n    //singleplayer button\r\n    QPushButton *singleplayerButton = new QPushButton(QString(\"First Button\"));\r\n    w = this->width()/4;\r\n    h = this->height()/18;\r\n    x = this->width()/2 - w/2;\r\n    y = 12*m_scale;\r\n    singleplayerButton->setGeometry(x,y,w,h);\r\n    addWidget(singleplayerButton);\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../PingPong_App/mainmenuscene.cpp b/../PingPong_App/mainmenuscene.cpp
+--- a/../PingPong_App/mainmenuscene.cpp	
++++ b/../PingPong_App/mainmenuscene.cpp	
+@@ -27,7 +27,7 @@
+     title->setPos(x,y);
+     addItem(title);
+ 
+-
++    // TODO: Customize style of buttons
+     //singleplayer button
+     QPushButton *singleplayerButton = new QPushButton(QString("First Button"));
+     w = this->width()/4;
+Index: ../PingPong_App/guiview.cpp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#include \"guiview.h\"\r\n\r\nGuiView::GuiView(Game& game,QWidget *parent) : QGraphicsView(parent)\r\n{\r\n    this->game = &game;\r\n    this->mainMenuScene = new MainMenuScene(game,this);\r\n    this->setScene(mainMenuScene);\r\n\r\n    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);\r\n    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);\r\n\r\n    //setFixedSize(1024,900);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../PingPong_App/guiview.cpp b/../PingPong_App/guiview.cpp
+--- a/../PingPong_App/guiview.cpp	
++++ b/../PingPong_App/guiview.cpp	
+@@ -9,5 +9,4 @@
+     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+ 
+-    //setFixedSize(1024,900);
+ }
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"GRADLE\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	
++++ b/.idea/gradle.xml	
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="GradleMigrationSettings" migrationVersion="1" />
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
