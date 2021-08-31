@@ -71,6 +71,8 @@ Game::Game():
 {
     this->ball = new Ball(this);
     this->padles = new QList<Paddle *>();
+    this->padles->append(new Paddle(this,QPointF(0,400),200));
+    this->padles->append(new Paddle(this,QPointF(board.width()-1,400),200));
 }
 
 Game::~Game()

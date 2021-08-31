@@ -3,7 +3,6 @@
 #include <QRect>
 #include <model/game.h>
 #include <QDebug>
-#include <time.h>
 
 Ball::Ball(Game *game)
 {
@@ -61,42 +60,29 @@ void Ball::move(double dt)
             this->velocity.setY(-this->velocity.ry());
             move(vdtLeft);
         }else{// uderzenie w poziomie
-            this->position = hHitPoint;
-            this->velocity.setX(-this->velocity.rx());
-            move(hdtLeft);
+            Paddle *paddle = NULL;
+            for(auto *_paddle : *this->game->getPadles()){
+                if(_paddle->getPosition().x()==hHitPoint.x()){
+                    paddle = _paddle;
+                }
+            }
+            if(paddle != NULL){
+                if(abs(paddle->getPosition().ry() - position.ry())<paddle->getSize()){
+                    this->position = hHitPoint;
+                    this->velocity.setX(-this->velocity.rx());
+                    move(hdtLeft);
+                }else{
+                    //score point
+                    this->position = this->game->getBoard().center();
+                    this->randomVelocity(45);
+                }
+            }else{
+                // score point
+                this->position = this->game->getBoard().center();
+                this->randomVelocity(45);
+            }
         }
-
     }
-
-
-
-    //    {
-    //            if(abs(this->velocity.ry()) > abs(this->velocity.rx())){// wall hit //BEZ SENSU
-    //                double dtLeft;
-    //                QPoint hitPoint;
-    //                if(this->velocity.ry()>0){// upper wall hit
-    //                    int mx = (this->game->getBoard().height() - this->position.ry()) * (nextPossition.rx() - this->position.rx())/(nextPossition.ry()-this->position.ry());
-    //                    hitPoint = QPoint(this->position.rx()+mx,this->game->getBoard().height());
-    //                    dtLeft = dt - (hitPoint - this->position).manhattanLength()/((double)speed);
-    //                }else{//down wall hit
-    //                    int mx = this->position.ry() * (nextPossition.rx() - this->position.rx())/(this->position.ry()-nextPossition.ry());
-    //                    hitPoint = QPoint(this->position.rx()+mx,0);
-    //                    dtLeft = dt - (hitPoint - this->position).manhattanLength()/((double)speed);
-    //                }
-    //                this->position = hitPoint;
-    //                this->velocity.setY(-this->velocity.ry());
-    //                move(dtLeft);
-    //            }else{ //hit padle or score point
-
-    //                if(this->velocity.rx()>0){// prawo
-    //                    Paddle paddle = *this->findPaddle(this->game->getBoard().width());
-    //                }else{// lewo
-    //                    Paddle paddle = *this->findPaddle(0);
-    //                }
-    //            }
-
-    //        }
-
 }
 
 QPointF Ball::getPosition() const
@@ -112,8 +98,8 @@ void Ball::setPosition(const QPoint &value)
 
 void Ball::randomVelocity(double angle)
 {
-    srand(time(0));
     double randAngle =  -angle + ((double) rand() / (RAND_MAX))*(angle*2); //random angle from <-angle : +angle>
+    qDebug() << randAngle;
     int direction = ((rand()%2)*2)-1; // random 1 or -1
     double xv = speed * cos(randAngle*M_PI/180) * direction;
     double yv = speed * sin(randAngle*M_PI/180) * direction;
