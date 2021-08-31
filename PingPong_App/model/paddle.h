@@ -9,14 +9,14 @@ class Paddle
 {
 private:
     Game *game;
-    QPoint position;
+    QPointF position;
     int size;
 
 public:
     Paddle(Game *game);
 
     void move();
-    QPoint getPosition() const;
+    QPointF getPosition() const;
     void setPosition(const QPoint &value);
 
 };

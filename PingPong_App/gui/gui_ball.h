@@ -2,7 +2,7 @@
 #define GUI_BALL_H
 
 #include <QGraphicsEllipseItem>
-#include "ball.h"
+#include "model/ball.h"
 
 
 class Gui_ball : public QGraphicsEllipseItem

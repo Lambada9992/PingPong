@@ -1,7 +1,7 @@
 #ifndef GUIVIEW_H
 #define GUIVIEW_H
 
-#include "game.h"
+#include "model/game.h"
 #include "gamescene.h"
 #include "gui_board.h"
 #include "mainmenuscene.h"

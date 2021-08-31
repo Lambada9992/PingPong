@@ -10,7 +10,7 @@ void Paddle::move()
 
 }
 
-QPoint Paddle::getPosition() const
+QPointF Paddle::getPosition() const
 {
     return position;
 }

@@ -1,7 +1,7 @@
 #ifndef MAINMENUSCENE_H
 #define MAINMENUSCENE_H
 
-#include "game.h"
+#include "model/game.h"
 
 #include <QGraphicsScene>
 #include <QPushButton>
