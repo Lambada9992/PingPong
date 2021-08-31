@@ -1,33 +1,18 @@
 #include "game.h"
 
 #include <qthread.h>
+#include <QDebug>
 
 void Game::startGame()
 {
-    //    this->isLive = true;
-    //    auto lastTime = std::chrono::high_resolution_clock::now();
-    this->prepareGame();
-
-    for(int i =0;i<100;i++)
-    {
-        //while (isLive) {
-        /* auto dt = std::chrono::high_resolution_clock::now() - lastTime;
-        lastTime = std::chrono::high_resolution_clock::now();
-        long double dtns = ((long double)std::chrono::duration_cast<std::chrono::nanoseconds>(dt).count())/1000000;      //time in s
-        //makeMoves(dtns);
-        emit updateGui();
-        */
-        i++;
-        ball->setPosition(QPoint(i*10,0));
-        QThread::sleep(1);
-        emit updateGui();
-    }
-    //   }
+   this->start();
 }
 
 void Game::stopGame()
 {
+    mutex.lock();
     this->isLive = false;
+    mutex.unlock();
 }
 
 void Game::prepareGame()
@@ -35,9 +20,27 @@ void Game::prepareGame()
     this->score.first = 0;
     this->score.second = 0;
     this->ball->setPosition(this->board.center());
-    // this->ball->randomVelocity(45);
+    this->ball->randomVelocity(45);
 }
 
+void Game::run()
+{
+    this->isLive = true;
+    auto lastTime = std::chrono::high_resolution_clock::now();
+    this->prepareGame();
+    while (true) {
+        auto dt = std::chrono::high_resolution_clock::now() - lastTime;
+        lastTime = std::chrono::high_resolution_clock::now();
+        long double dtns = ((long double)std::chrono::duration_cast<std::chrono::nanoseconds>(dt).count())/1000000;   //time in ms
+        makeMoves(dtns);
+        emit updateGui();
+        //QThread::msleep(500);
+
+        mutex.lock();
+        if(!isLive)break;
+        mutex.unlock();
+    }
+}
 
 
 void Game::makeMoves(long double dt)
@@ -56,6 +59,11 @@ QRect Game::getBoard() const
 QList<Paddle *> *Game::getPadles() const
 {
     return padles;
+}
+
+Ball *Game::getBall() const
+{
+    return ball;
 }
 
 Game::Game():

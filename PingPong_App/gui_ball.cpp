@@ -1,17 +1,16 @@
 #include "gui_ball.h"
+#include <QDebug>
 
-Gui_ball::Gui_ball(Ball &ball) : ball(&ball)
+Gui_ball::Gui_ball(Ball *ball, QGraphicsItem *parent): QGraphicsEllipseItem(parent)
 {
-
-
-    this->setX(ball.getPosition().rx());
-    this->setY(ball.getPosition().ry());
-    this->setRect(ball.getPosition().rx(),ball.getPosition().ry(),20,20);
+    this->ball = ball;
+    this->setPos(this->ball->getPosition());
+    this->setRect(ball->getPosition().rx(),ball->getPosition().ry(),10,10);
 
 }
 
 void Gui_ball::updatePosition()
 {
-    this->setX(ball->getPosition().rx());
-    this->setY(ball->getPosition().ry());
+    this->setPos(this->ball->getPosition());
+    qDebug() << this->pos();
 }

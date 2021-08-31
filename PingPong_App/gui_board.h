@@ -6,11 +6,12 @@
 #include <qgraphicsscene.h>
 #include "QDebug"
 
-class Gui_board : public QGraphicsScene
+class Gui_board :public QObject, public QGraphicsRectItem
 {
+    Q_OBJECT
 public:
 
-    Gui_board(Game &game);
+    Gui_board(Game *game,QObject *object = nullptr,QGraphicsItem *parent = nullptr);
 
 private:
     Game *game;

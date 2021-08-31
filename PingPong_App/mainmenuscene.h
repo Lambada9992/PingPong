@@ -17,7 +17,7 @@ private:
     QPushButton *singleplayerButton;
 
 public:
-    explicit MainMenuScene(Game &game,GuiView *parent = nullptr);
+    explicit MainMenuScene(Game *game,GuiView *parent = nullptr);
     
 public slots:
     void singleplayerButtonClicked();

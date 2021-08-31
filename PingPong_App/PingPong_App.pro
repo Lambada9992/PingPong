@@ -13,6 +13,7 @@ CONFIG += console
 SOURCES += \
     ball.cpp \
     game.cpp \
+    gamescene.cpp \
     gui_ball.cpp \
     gui_board.cpp \
     guiview.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
 HEADERS += \
     ball.h \
     game.h \
+    gamescene.h \
     gui_ball.h \
     gui_board.h \
     guiview.h \
