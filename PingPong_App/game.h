@@ -7,13 +7,16 @@
 #include <QObject>
 #include <QList>
 #include <QRect>
+#include <QThread>
+#include <QMutex>
 
-class Game : public QObject
+class Game : public QThread
 {
     Q_OBJECT
 private:
     QRect board;
     bool isLive = false;
+    QMutex mutex;
     Ball *ball;
     QList<Paddle *> *padles;
     QPair<int,int> score;
@@ -21,12 +24,17 @@ private:
 public:
     Game();
     ~Game();
+
     void startGame();
     void stopGame();
 
     QRect getBoard() const;
 
     QList<Paddle *> *getPadles() const;
+
+    Ball *getBall() const;
+
+    QMutex getMutex() const;
 
 private:
     void makeMoves(long double dt);
@@ -35,6 +43,10 @@ private:
 signals:
     void updateGui();
 
+
+    // QThread interface
+protected:
+    void run();
 };
 
 #endif // GAME_H

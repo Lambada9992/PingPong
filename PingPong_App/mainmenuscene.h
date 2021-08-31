@@ -4,6 +4,7 @@
 #include "game.h"
 
 #include <QGraphicsScene>
+#include <QPushButton>
 
 class GuiView;
 
@@ -13,11 +14,16 @@ class MainMenuScene : public QGraphicsScene
 private:
     Game *game;
     GuiView *parent;
+    QPushButton *singleplayerButton;
 
 public:
-    explicit MainMenuScene(Game &game,GuiView *parent = nullptr);
+    explicit MainMenuScene(Game *game,GuiView *parent = nullptr);
+    
+public slots:
+    void singleplayerButtonClicked();
 
 signals:
+    void startSinglePlayer();
 
 };
 

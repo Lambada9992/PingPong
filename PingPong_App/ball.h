@@ -11,7 +11,7 @@ class Ball
 {
 private:
     Game *game;
-    QPoint position;
+    QPointF position;
     QPointF velocity;
     int speed;
 
@@ -21,7 +21,7 @@ public:
 
     void move(double dt);
 
-    QPoint getPosition() const;
+    QPointF getPosition() const;
     void setPosition(const QPoint &value);
 
     void randomVelocity(double angle);
