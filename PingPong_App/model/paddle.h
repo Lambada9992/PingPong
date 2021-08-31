@@ -10,15 +10,16 @@ class Paddle
 private:
     Game *game;
     QPointF position;
-    int size;
+    double size;
 
 public:
-    Paddle(Game *game);
+    Paddle(Game *game, QPointF position, double size);
 
     void move();
     QPointF getPosition() const;
     void setPosition(const QPoint &value);
 
+    double getSize() const;
 };
 
 #endif // PADDLE_H

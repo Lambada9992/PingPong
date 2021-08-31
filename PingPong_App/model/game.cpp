@@ -31,7 +31,7 @@ void Game::run()
     while (true) {
         auto dt = std::chrono::high_resolution_clock::now() - lastTime;
         lastTime = std::chrono::high_resolution_clock::now();
-        long double dtns = ((long double)std::chrono::duration_cast<std::chrono::nanoseconds>(dt).count())/1000000;   //time in ms
+        long double dtns = ((long double)std::chrono::duration_cast<std::chrono::nanoseconds>(dt).count())/1000000000;   //time in s
         makeMoves(dtns);
         emit updateGui();
         //QThread::msleep(500);
@@ -71,6 +71,8 @@ Game::Game():
 {
     this->ball = new Ball(this);
     this->padles = new QList<Paddle *>();
+    this->padles->append(new Paddle(this,QPointF(0,400),200));
+    this->padles->append(new Paddle(this,QPointF(board.width()-1,400),200));
 }
 
 Game::~Game()
