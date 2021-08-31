@@ -12,5 +12,4 @@ Gui_ball::Gui_ball(Ball *ball, QGraphicsItem *parent): QGraphicsEllipseItem(pare
 void Gui_ball::updatePosition()
 {
     this->setPos(this->ball->getPosition());
-    qDebug() << this->pos();
 }
