@@ -13,7 +13,8 @@ class GuiView : public QGraphicsView
 private:
     Game *game;
     MainMenuScene *mainMenuScene;
-    Gui_board *Gui_board;
+    Gui_board *gui_board;
+
 public:
     GuiView(Game& game,QWidget *parent = nullptr);
 public slots:

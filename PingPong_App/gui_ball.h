@@ -8,7 +8,7 @@
 class Gui_ball : public QGraphicsEllipseItem
 {
 public:
-    Gui_ball(Ball *ball);
+    Gui_ball(Ball &ball);
     void updatePosition();
 
 private:

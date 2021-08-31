@@ -1,6 +1,6 @@
 #include "guiview.h"
 
-GuiView::GuiView(Game& game,QWidget *parent) : QGraphicsView(parent)
+GuiView::GuiView(Game &game,QWidget *parent) : QGraphicsView(parent)
 {
 
     this->game = &game;
@@ -15,6 +15,7 @@ GuiView::GuiView(Game& game,QWidget *parent) : QGraphicsView(parent)
 
 void GuiView::startSinglePlayer()
 {
-    Gui_board = new class Gui_board(game);
-    this->setScene(Gui_board);
+    gui_board = new Gui_board(*game);
+    this->setScene(gui_board);
+    game->startGame();
 }
