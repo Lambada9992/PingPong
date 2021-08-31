@@ -29,12 +29,19 @@ MainMenuScene::MainMenuScene(Game &game,GuiView *parent)
 
 
     //singleplayer button
-    QPushButton *singleplayerButton = new QPushButton(QString("First Button"));
+    singleplayerButton = new QPushButton(QString("Single Player"));
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
     y = 12*m_scale;
     singleplayerButton->setGeometry(x,y,w,h);
+    connect(singleplayerButton,SIGNAL(clicked()),this,SLOT(singleplayerButtonClicked()));
     addWidget(singleplayerButton);
 
+
+}
+
+void MainMenuScene::singleplayerButtonClicked()
+{
+    startSinglePlayer();
 }
