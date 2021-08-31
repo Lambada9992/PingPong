@@ -1,7 +1,7 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
-#include "game.h"
+#include "model/game.h"
 #include "gui_board.h"
 
 #include <QGraphicsScene>

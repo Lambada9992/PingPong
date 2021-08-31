@@ -1,7 +1,7 @@
 #include "ball.h"
 #include <math.h>
 #include <QRect>
-#include <game.h>
+#include <model/game.h>
 #include <QDebug>
 #include <time.h>
 
@@ -21,7 +21,7 @@ void Ball::move(double dt)
     return;
 
     if(dt <= 0) return;
-    QPointF nextPossition = this->position * (this->speed*dt/500);// zle
+    QPointF nextPossition = this->position * (this->speed*dt);// zle
     if(this->game->getBoard().contains(nextPossition.toPoint())){// no hit
         this->position = nextPossition;
     }else {

@@ -11,29 +11,29 @@ CONFIG += console
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ball.cpp \
-    game.cpp \
-    gamescene.cpp \
-    gui_ball.cpp \
-    gui_board.cpp \
-    guiview.cpp \
+    gui/gamescene.cpp \
+    gui/gui_ball.cpp \
+    gui/gui_board.cpp \
+    gui/guiview.cpp \
+    gui/mainmenuscene.cpp \
     main.cpp \
-    mainmenuscene.cpp \
-    paddle.cpp \
-    sockethandler.cpp \
-    tcpserver.cpp
+    model/ball.cpp \
+    model/game.cpp \
+    model/paddle.cpp \
+    network/sockethandler.cpp \
+    network/tcpserver.cpp
 
 HEADERS += \
-    ball.h \
-    game.h \
-    gamescene.h \
-    gui_ball.h \
-    gui_board.h \
-    guiview.h \
-    mainmenuscene.h \
-    paddle.h \
-    sockethandler.h \
-    tcpserver.h
+    gui/gamescene.h \
+    gui/gui_ball.h \
+    gui/gui_board.h \
+    gui/guiview.h \
+    gui/mainmenuscene.h \
+    model/ball.h \
+    model/game.h \
+    model/paddle.h \
+    network/sockethandler.h \
+    network/tcpserver.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

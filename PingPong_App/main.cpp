@@ -1,8 +1,7 @@
 #include <QApplication>
 
-#include "game.h"
-#include "guiview.h"
-#include "tcpserver.h"
+#include "model/game.h"
+#include "gui/guiview.h"
 #include "math.h"
 
 #include <QTime>
