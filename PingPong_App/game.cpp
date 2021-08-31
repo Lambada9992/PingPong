@@ -1,18 +1,28 @@
 #include "game.h"
 
+#include <qthread.h>
+
 void Game::startGame()
 {
-    this->isLive = true;
-    auto lastTime = std::chrono::high_resolution_clock::now();
+    //    this->isLive = true;
+    //    auto lastTime = std::chrono::high_resolution_clock::now();
     this->prepareGame();
 
-    while (isLive) {
-        auto dt = std::chrono::high_resolution_clock::now() - lastTime;
+    for(int i =0;i<100;i++)
+    {
+        //while (isLive) {
+        /* auto dt = std::chrono::high_resolution_clock::now() - lastTime;
         lastTime = std::chrono::high_resolution_clock::now();
         long double dtns = ((long double)std::chrono::duration_cast<std::chrono::nanoseconds>(dt).count())/1000000;      //time in s
-        makeMoves(dtns);
+        //makeMoves(dtns);
+        emit updateGui();
+        */
+        i++;
+        ball->setPosition(QPoint(i*10,0));
+        QThread::sleep(1);
         emit updateGui();
     }
+    //   }
 }
 
 void Game::stopGame()
@@ -25,7 +35,7 @@ void Game::prepareGame()
     this->score.first = 0;
     this->score.second = 0;
     this->ball->setPosition(this->board.center());
-    this->ball->randomVelocity(45);
+    // this->ball->randomVelocity(45);
 }
 
 

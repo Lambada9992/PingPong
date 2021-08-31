@@ -12,6 +12,7 @@ class Game : public QObject
 {
     Q_OBJECT
 private:
+    friend class Gui_board;
     QRect board;
     bool isLive = false;
     Ball *ball;
