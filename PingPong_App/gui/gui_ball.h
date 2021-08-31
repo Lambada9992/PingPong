@@ -5,7 +5,7 @@
 #include "model/ball.h"
 
 
-class Gui_ball : public QGraphicsEllipseItem
+class Gui_ball : public QGraphicsPixmapItem
 {
 public:
     Gui_ball(Ball *ball,QGraphicsItem *parent = nullptr);

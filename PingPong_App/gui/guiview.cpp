@@ -11,7 +11,7 @@ GuiView::GuiView(Game &game,QWidget *parent) : QGraphicsView(parent)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setAlignment(Qt::AlignTop|Qt::AlignLeft);
-    setFixedSize(800,800);
+    setFixedSize(500,500);
 
     this->mainMenuScene = new MainMenuScene(this->game,this);
     connect(this->mainMenuScene,SIGNAL(startSinglePlayer()),this,SLOT(startSinglePlayer()));
@@ -22,8 +22,10 @@ GuiView::GuiView(Game &game,QWidget *parent) : QGraphicsView(parent)
 
 void GuiView::startSinglePlayer()
 {
+    setFixedSize(game->getBoard().size());
     this->setScene(gameScene);
     game->startGame();
+
 }
 
 void GuiView::closeEvent(QCloseEvent *event)

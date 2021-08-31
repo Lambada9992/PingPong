@@ -14,6 +14,7 @@ SOURCES += \
     gui/gamescene.cpp \
     gui/gui_ball.cpp \
     gui/gui_board.cpp \
+    gui/gui_paddle.cpp \
     gui/guiview.cpp \
     gui/mainmenuscene.cpp \
     main.cpp \
@@ -27,6 +28,7 @@ HEADERS += \
     gui/gamescene.h \
     gui/gui_ball.h \
     gui/gui_board.h \
+    gui/gui_paddle.h \
     gui/guiview.h \
     gui/mainmenuscene.h \
     model/ball.h \
@@ -39,3 +41,6 @@ HEADERS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    Zasoby.qrc

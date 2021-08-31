@@ -4,7 +4,7 @@ Gui_board::Gui_board(Game *game, QObject *object, QGraphicsItem *parent) : QObje
 {
     this->game = game;
     this->setRect(this->game->getBoard());
-    gui_ball = new Gui_ball(game->getBall(),this);
+    gui_ball = new Gui_ball(game->getBall(), this);
     connect(this->game,SIGNAL(updateGui()),this,SLOT(update()),Qt::BlockingQueuedConnection);
 }
 
