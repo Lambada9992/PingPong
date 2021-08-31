@@ -1,0 +1,46 @@
+Index: ../PingPong_App/model/game.h
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#ifndef GAME_H\r\n#define GAME_H\r\n\r\n#include \"ball.h\"\r\n#include \"paddle.h\"\r\n\r\n#include <QObject>\r\n#include <QList>\r\n#include <QRect>\r\n#include <QThread>\r\n#include <QMutex>\r\n\r\nclass Game : public QThread\r\n{\r\n    Q_OBJECT\r\nprivate:\r\n    QRect board;\r\n    bool isLive = false;\r\n    QMutex mutex;\r\n    Ball *ball;\r\n    QList<Paddle *> *padles;\r\n    QPair<int,int> score;\r\n\r\npublic:\r\n    Game();\r\n    ~Game();\r\n\r\n    void startGame();\r\n    void stopGame();\r\n\r\n    QRect getBoard() const;\r\n\r\n    QList<Paddle *> *getPadles() const;\r\n\r\n    Ball *getBall() const;\r\n\r\n    QMutex getMutex() const;\r\n\r\nprivate:\r\n    void makeMoves(long double dt);\r\n    void prepareGame();\r\n\r\nsignals:\r\n    void updateGui();\r\n\r\n\r\n    // QThread interface\r\nprotected:\r\n    void run();\r\n};\r\n\r\n#endif // GAME_H\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../PingPong_App/model/game.h b/../PingPong_App/model/game.h
+--- a/../PingPong_App/model/game.h	
++++ b/../PingPong_App/model/game.h	
+@@ -10,6 +10,8 @@
+ #include <QThread>
+ #include <QMutex>
+ 
++#include <network/tcpserver.h>
++
+ class Game : public QThread
+ {
+     Q_OBJECT
+@@ -21,6 +23,9 @@
+     QList<Paddle *> *padles;
+     QPair<int,int> score;
+ 
++    //network
++    TcpServer server;
++
+ public:
+     Game();
+     ~Game();
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"GRADLE\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	
++++ b/.idea/gradle.xml	
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="GradleMigrationSettings" migrationVersion="1" />
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
