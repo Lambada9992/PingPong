@@ -1,7 +1,7 @@
 #ifndef GUI_BOARD_H
 #define GUI_BOARD_H
 
-#include "model/game.h"
+#include "MODEL/game.h"
 #include "gui_ball.h"
 #include <qgraphicsscene.h>
 #include "QDebug"
