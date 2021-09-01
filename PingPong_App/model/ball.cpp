@@ -12,7 +12,7 @@ int Ball::getSize() const
 Ball::Ball(Game *game)
 {
     this->game = game;
-    this->speed = 100; //how many pixels per sec
+    this->speed = 500; //how many pixels per sec
 
 }
 

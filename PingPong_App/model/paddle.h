@@ -16,7 +16,7 @@ private:
 public:
     Paddle(Game *game, QPointF position, double size);
 
-    void move();
+    void move(int direction);
     QPointF getPosition() const;
     void setPosition(const QPoint &value);
 

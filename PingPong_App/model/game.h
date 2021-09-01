@@ -9,6 +9,8 @@
 #include <QRect>
 #include <QThread>
 #include <QMutex>
+#include <QWidget>
+
 
 class Game : public QThread
 {
@@ -40,7 +42,7 @@ public:
 private:
     void makeMoves(long double dt);
     void prepareGame();
-
+    void keyPressEvent(QKeyEvent *event);
 signals:
     void updateGui();
 

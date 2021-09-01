@@ -2,6 +2,7 @@
 
 #include <qthread.h>
 #include <QDebug>
+#include <QKeyEvent>
 
 void Game::startGame()
 {
@@ -47,7 +48,7 @@ void Game::makeMoves(long double dt)
 {
     this->ball->move(dt);
     for(int i=0;i<this->padles->size();i++){
-        (*this->padles)[i]->move();
+        //(*this->padles)[i]->move(0);
     }
 }
 
@@ -75,8 +76,8 @@ Game::Game():
 {
     this->ball = new Ball(this);
     this->padles = new QList<Paddle *>();
-    this->padles->append(new Paddle(this,QPointF(0,board.height()/2),board.height()/4));
-    this->padles->append(new Paddle(this,QPointF(board.width()-1,board.height()/2),board.height()/4));
+    this->padles->append(new Paddle(this, QPointF(0,board.height()/2), board.height()/4));
+    this->padles->append(new Paddle(this, QPointF(board.width()-1,board.height()/2), board.height()/4));
 }
 
 Game::~Game()
@@ -88,3 +89,18 @@ Game::~Game()
     }
     delete this->padles;
 }
+
+void Game::keyPressEvent(QKeyEvent *e)
+{
+    switch(e->key())
+            {
+                case Qt::Key_Space:
+                {
+                qDebug() << "space" ;
+                this->getPadle(1)->move(0);
+                }
+                break;
+             }
+}
+
+

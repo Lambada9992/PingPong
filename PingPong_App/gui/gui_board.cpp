@@ -15,4 +15,6 @@ Gui_board::Gui_board(Game *game, QObject *object, QGraphicsItem *parent) : QObje
 void Gui_board::update()
 {
     this->gui_ball->updatePosition();
+    this->gui_padles[0]->updatePosition();
+    this->gui_padles[1]->updatePosition();
 }
