@@ -34,7 +34,7 @@ void Game::run()
         long double dtns = ((long double)std::chrono::duration_cast<std::chrono::nanoseconds>(dt).count())/1000000000;   //time in s
         makeMoves(dtns);
         emit updateGui();
-        //QThread::msleep(500);
+        //QThread::msleep(100);
 
         mutex.lock();
         if(!isLive)break;
@@ -67,12 +67,12 @@ Ball *Game::getBall() const
 }
 
 Game::Game():
-    board(0,0,800,800)
+    board(0,0,800,400)
 {
     this->ball = new Ball(this);
     this->padles = new QList<Paddle *>();
-    this->padles->append(new Paddle(this,QPointF(0,400),200));
-    this->padles->append(new Paddle(this,QPointF(board.width()-1,400),200));
+    this->padles->append(new Paddle(this,QPointF(0,board.height()/2),board.height()/2));
+    this->padles->append(new Paddle(this,QPointF(board.width()-1,board.height()/2),board.height()/2));
 }
 
 Game::~Game()

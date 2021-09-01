@@ -8,6 +8,7 @@ Ball::Ball(Game *game)
 {
     this->game = game;
     this->speed = 500; //how many pixels per sec
+    this->size = game->getBoard().size().rwidth()*game->getBoard().size().rheight()/1000;
 }
 
 // TODO: Dodanie logiki w przypadku uderzenia w Paddle lub score punktu

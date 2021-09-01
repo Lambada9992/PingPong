@@ -1,11 +1,15 @@
 #include "gui_ball.h"
 #include <QDebug>
 
-Gui_ball::Gui_ball(Ball *ball, QGraphicsItem *parent): QGraphicsEllipseItem(parent)
+Gui_ball::Gui_ball(Ball *ball, QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 {
     this->ball = ball;
     this->setPos(this->ball->getPosition());
-    this->setRect(ball->getPosition().rx(),ball->getPosition().ry(),10,10);
+    QPixmap *pic = new QPixmap(":/new/pics/ball.png");
+
+
+    this->setPixmap(pic->scaled(20,20,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+
 
 }
 
