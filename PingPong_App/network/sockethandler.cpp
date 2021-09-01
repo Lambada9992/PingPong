@@ -22,9 +22,7 @@ void SocketHandler::run()
 void SocketHandler::readyRead()
 {
     QByteArray data = socket->readAll();
-    socket->write(data);
-    qDebug() << data;
-    socket->flush();
+    messageToInterprete(QString(data.trimmed()));
 }
 
 void SocketHandler::disconnected()
