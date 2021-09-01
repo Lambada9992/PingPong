@@ -4,11 +4,16 @@
 #include <model/game.h>
 #include <QDebug>
 
+int Ball::getSize() const
+{
+    return size;
+}
+
 Ball::Ball(Game *game)
 {
     this->game = game;
-    this->speed = 500; //how many pixels per sec
-    this->size = game->getBoard().size().rwidth()*game->getBoard().size().rheight()/1000;
+    this->speed = 100; //how many pixels per sec
+
 }
 
 // TODO: Dodanie logiki w przypadku uderzenia w Paddle lub score punktu

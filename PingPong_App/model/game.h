@@ -36,6 +36,7 @@ public:
 
     QMutex getMutex() const;
 
+    Paddle *getPadle(int i) const;
 private:
     void makeMoves(long double dt);
     void prepareGame();

@@ -3,17 +3,22 @@
 Gui_Paddle::Gui_Paddle(Paddle *paddle, QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
 {
     this->paddle = paddle;
-    this->setPos(this->paddle->getPosition());
-    QPixmap pic = QPixmap(":/new/pics/ball.png");
-    pic.size().setWidth(30);
-    pic.size().setHeight(30);
-    this->setPixmap(pic);
-
+    updatePosition();
+    QPixmap *pic = new QPixmap(":/new/pics/red_paddle.png");
+    this->setPixmap(pic->scaled(15,paddle->getSize(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
 
 }
 
 void Gui_Paddle::updatePosition()
 {
-    this->setPos(this->paddle->getPosition());
+    if(this->paddle->getPosition().rx() == 0 )
+    {
+        this->setPos(this->paddle->getPosition() - QPointF(15,paddle->getSize()/2));
+    }
+    else if(this->paddle->getPosition().rx() != 0)
+    {
+        this->setPos(this->paddle->getPosition() - QPointF(-15,paddle->getSize()/2));
+    }
+
 
 }

@@ -12,6 +12,7 @@ private:
     QPointF position;
     double size;
 
+
 public:
     Paddle(Game *game, QPointF position, double size);
 
@@ -20,6 +21,7 @@ public:
     void setPosition(const QPoint &value);
 
     double getSize() const;
+
 };
 
 #endif // PADDLE_H

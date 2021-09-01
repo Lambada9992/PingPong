@@ -26,6 +26,8 @@ public:
     void setPosition(const QPoint &value);
 
     void randomVelocity(double angle);
+    int getSize() const;
+
 private:
     double getAngle();
     Paddle *findPaddle(int possitionX);
