@@ -3,6 +3,7 @@
 
 
 #include <QGraphicsScene>
+#include <QPushButton>
 
 #include <model/game.h>
 
@@ -13,10 +14,16 @@ class MultiplayerMenuScene : public QGraphicsScene
     Q_OBJECT
 private:
     Game *game;
+    QPushButton *mainMenuButton;
 public:
     MultiplayerMenuScene(Game *game,GuiView *parent = nullptr);
 
 public slots:
+    void mainMenuButtonClicked();
+    void hostButtonClicked();
+    void joinButtonClicked();
+signals:
+    void showMainMenu();
 
 };
 

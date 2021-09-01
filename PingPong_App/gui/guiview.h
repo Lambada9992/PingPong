@@ -25,6 +25,9 @@ public slots:
     void showMultiplayerMenu();
     void showMainMenu();
 
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
+
     // QWidget interface
 protected:
     void closeEvent(QCloseEvent *event) override;

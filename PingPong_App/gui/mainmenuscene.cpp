@@ -42,7 +42,7 @@ MainMenuScene::MainMenuScene(Game *game, GuiView *parent)
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 24*m_scale;
+    y = 15*m_scale;
     multiplayerButton->setGeometry(x,y,w,h);
     connect(multiplayerButton,SIGNAL(clicked()),this,SLOT(multiplayerButtonClicked()));
     addWidget(multiplayerButton);
