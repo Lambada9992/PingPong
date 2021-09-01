@@ -16,6 +16,16 @@ void Game::stopGame()
     mutex.unlock();
 }
 
+void Game::startServer()
+{
+    server.startServer(port);
+}
+
+void Game::stopServer()
+{
+    server;
+}
+
 void Game::prepareGame()
 {
     this->score.first = 0;
@@ -48,7 +58,7 @@ void Game::makeMoves(long double dt)
 {
     this->ball->move(dt);
     for(int i=0;i<this->padles->size();i++){
-        //(*this->padles)[i]->move(0);
+        (*this->padles)[i]->move(dt);
     }
 }
 
@@ -78,10 +88,13 @@ Game::Game():
     this->padles = new QList<Paddle *>();
     this->padles->append(new Paddle(this, QPointF(0,board.height()/2), board.height()/4));
     this->padles->append(new Paddle(this, QPointF(board.width()-1,board.height()/2), board.height()/4));
+    connect(&server,SIGNAL(messageToInterprete(QString)),this,SLOT(interpreteMessage(QString)),Qt::QueuedConnection);
+    startServer();
 }
 
 Game::~Game()
 {
+    stopServer();
     delete this->ball;
     while (padles->size() != 0) {
         delete this->padles->takeFirst();
@@ -90,17 +103,9 @@ Game::~Game()
     delete this->padles;
 }
 
-void Game::keyPressEvent(QKeyEvent *e)
+void Game::interpreteMessage(QString message)
 {
-    switch(e->key())
-            {
-                case Qt::Key_Space:
-                {
-                qDebug() << "space" ;
-                this->getPadle(1)->move(0);
-                }
-                break;
-             }
+
 }
 
 

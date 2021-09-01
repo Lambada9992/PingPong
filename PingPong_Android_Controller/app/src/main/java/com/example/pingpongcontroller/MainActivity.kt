@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var etIp: EditText
     private lateinit var bConnection: Button
 
-    val IP = "192.168.0.29"
+    val IP = "192.168.0.13"
 
     val connectionStatusObs: Observer = Observer { _, _ ->
         //TODO update connection Status

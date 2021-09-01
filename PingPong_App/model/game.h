@@ -11,6 +11,8 @@
 #include <QMutex>
 #include <QWidget>
 
+#include <network/tcpserver.h>
+
 
 class Game : public QThread
 {
@@ -23,12 +25,20 @@ private:
     QList<Paddle *> *padles;
     QPair<int,int> score;
 
+    //NETWORK
+    TcpServer server;
+    qintptr port = 1234;
+
+
 public:
     Game();
     ~Game();
 
     void startGame();
     void stopGame();
+
+    void startServer();
+    void stopServer();
 
     QRect getBoard() const;
 
@@ -42,7 +52,9 @@ public:
 private:
     void makeMoves(long double dt);
     void prepareGame();
-    void keyPressEvent(QKeyEvent *event);
+public slots:
+    void interpreteMessage(QString message);
+
 signals:
     void updateGui();
 

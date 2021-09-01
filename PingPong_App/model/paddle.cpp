@@ -1,4 +1,15 @@
 #include "paddle.h"
+#include "game.h"
+
+Paddle::Direction Paddle::getDirection() const
+{
+    return direction;
+}
+
+void Paddle::setDirection(const Direction &value)
+{
+    direction = value;
+}
 
 Paddle::Paddle(Game *game, QPointF position, double size)
 {
@@ -12,15 +23,21 @@ double Paddle::getSize() const
     return size;
 }
 
-void Paddle::move(int direction)
+void Paddle::move(double dt)
 {
-    if(direction == 0)
+    if(direction == UP)
     {
-        this->position.ry()++;
+        this->position.ry() = this->position.y() + (this->speed*dt);
+        if(this->position.y()+this->size > this->game->getBoard().height()-1){
+            this->position.ry() = this->game->getBoard().height()-1 - size;
+        }
     }
-    else if(direction == 1)
+    else if(direction == DOWN)
     {
-        this->position.ry()--;
+        this->position.ry() = this->position.y() - (this->speed*dt);
+        if(this->position.y()-this->size<0){
+            this->position.ry() = size;
+        }
     }
 
 }

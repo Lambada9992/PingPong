@@ -17,6 +17,7 @@ SOURCES += \
     gui/gui_paddle.cpp \
     gui/guiview.cpp \
     gui/mainmenuscene.cpp \
+    gui/multiplayermenuscene.cpp \
     main.cpp \
     model/ball.cpp \
     model/game.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
     gui/gui_paddle.h \
     gui/guiview.h \
     gui/mainmenuscene.h \
+    gui/multiplayermenuscene.h \
     model/ball.h \
     model/game.h \
     model/paddle.h \
