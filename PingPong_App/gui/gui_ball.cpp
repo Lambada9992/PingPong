@@ -7,8 +7,7 @@ Gui_ball::Gui_ball(Ball *ball, QGraphicsItem *parent): QGraphicsPixmapItem(paren
     this->setPos(this->ball->getPosition());
     QPixmap *pic = new QPixmap(":/new/pics/ball.png");
 
-
-    this->setPixmap(pic->scaled(20,20,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+    this->setPixmap(pic->scaled(14,14,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
 
 
 }

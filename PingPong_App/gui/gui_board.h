@@ -1,6 +1,7 @@
 #ifndef GUI_BOARD_H
 #define GUI_BOARD_H
 
+class Gui_Paddle;
 #include "MODEL/game.h"
 #include "gui_ball.h"
 #include <qgraphicsscene.h>
@@ -16,6 +17,8 @@ public:
 private:
     Game *game;
     Gui_ball *gui_ball;
+    QList<Gui_Paddle *> gui_padles;
+
 public slots:
     void update();
 };

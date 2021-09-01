@@ -1,10 +1,5 @@
 #include "paddle.h"
 
-double Paddle::getSize() const
-{
-    return size;
-}
-
 Paddle::Paddle(Game *game, QPointF position, double size)
 {
     this->game = game;
@@ -12,8 +7,21 @@ Paddle::Paddle(Game *game, QPointF position, double size)
     this->size = size;
 }
 
-void Paddle::move()
+double Paddle::getSize() const
 {
+    return size;
+}
+
+void Paddle::move(int direction)
+{
+    if(direction == 0)
+    {
+        this->position.ry()++;
+    }
+    else if(direction == 1)
+    {
+        this->position.ry()--;
+    }
 
 }
 

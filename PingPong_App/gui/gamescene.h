@@ -16,6 +16,7 @@ private:
     Game *game;
     GuiView *parent;
     Gui_board *guiBoard;
+    QGraphicsRectItem *gameSceneRect = new QGraphicsRectItem();
 
 public:
     explicit GameScene(Game *game,GuiView *parent = nullptr);
