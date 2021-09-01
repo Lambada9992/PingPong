@@ -9,6 +9,8 @@
 #include <QRect>
 #include <QThread>
 #include <QMutex>
+#include <QWidget>
+
 
 class Game : public QThread
 {
@@ -36,10 +38,11 @@ public:
 
     QMutex getMutex() const;
 
+    Paddle *getPadle(int i) const;
 private:
     void makeMoves(long double dt);
     void prepareGame();
-
+    void keyPressEvent(QKeyEvent *event);
 signals:
     void updateGui();
 
