@@ -15,15 +15,18 @@ private:
     Game *game;
     GuiView *parent;
     QPushButton *singleplayerButton;
+    QPushButton *multiplayerButton;
 
 public:
     explicit MainMenuScene(Game *game,GuiView *parent = nullptr);
     
 public slots:
     void singleplayerButtonClicked();
+    void multiplayerButtonClicked();
 
 signals:
     void startSinglePlayer();
+    void showMultiplayerMenu();
 
 };
 
