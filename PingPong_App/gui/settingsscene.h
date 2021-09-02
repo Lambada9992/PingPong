@@ -4,6 +4,7 @@
 
 #include <QGraphicsScene>
 #include <QPushButton>
+#include <QSpinBox>
 
 #include <model/game.h>
 
@@ -16,6 +17,9 @@ class SettingsScene : public QGraphicsScene
 private:
     Game *game;
     QPushButton *mainMenuButton;
+    QPushButton *saveButton;
+    QSpinBox *boardSizeXSpinBox;
+    QSpinBox *boardSizeYSpinBox;
 
 public:
     SettingsScene(Game *game, GuiView *parent = nullptr);
