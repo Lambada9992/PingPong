@@ -37,13 +37,14 @@ MultiplayerMenuScene::MultiplayerMenuScene(Game *game, GuiView *parent)
     y = 18*m_scale;
     mainMenuButton->setGeometry(x,y,w,h);
     connect(mainMenuButton,SIGNAL(clicked()),this,SLOT(mainMenuButtonClicked()));
+
     addWidget(mainMenuButton);
 
 }
 
 void MultiplayerMenuScene::mainMenuButtonClicked()
 {
-    showMainMenu();
+    emit showMainMenu();
 }
 
 void MultiplayerMenuScene::hostButtonClicked()

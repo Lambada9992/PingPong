@@ -1,10 +1,10 @@
 #include "gui_paddle.h"
 
-Gui_Paddle::Gui_Paddle(Paddle *paddle, QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
+Gui_Paddle::Gui_Paddle(Paddle *paddle, QString color, QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
 {
     this->paddle = paddle;
     updatePosition();
-    QPixmap *pic = new QPixmap(":/new/pics/red_paddle.png");
+    QPixmap *pic = new QPixmap(":/new/pics/"+ color +"_paddle.png");
     this->setPixmap(pic->scaled(15,paddle->getSize()*2,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
 
 }

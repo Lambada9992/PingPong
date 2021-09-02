@@ -12,9 +12,11 @@ class GuiView;
 class MultiplayerMenuScene : public QGraphicsScene
 {
     Q_OBJECT
+
 private:
     Game *game;
     QPushButton *mainMenuButton;
+
 public:
     MultiplayerMenuScene(Game *game,GuiView *parent = nullptr);
 

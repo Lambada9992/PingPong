@@ -8,7 +8,7 @@
 class Gui_Paddle:public QGraphicsPixmapItem
 {
 public:
-    Gui_Paddle(Paddle *paddle, QGraphicsItem *parent = nullptr);
+    Gui_Paddle(Paddle *paddle, QString color, QGraphicsItem *parent = nullptr);
     void updatePosition();
 private:
     Paddle *paddle;

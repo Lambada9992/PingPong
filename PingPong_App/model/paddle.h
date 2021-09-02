@@ -13,7 +13,7 @@ private:
     Game *game;
     QPointF position;
     double size;
-    double speed = 200;
+    double speed = 400;
     Direction direction = NONE;
 
 public:
