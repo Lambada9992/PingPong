@@ -28,14 +28,14 @@ void Paddle::move(double dt)
     if(direction == UP)
     {
         this->position.ry() = this->position.y() + (this->speed*dt);
-        if(this->position.y()+this->size > this->game->getBoard().height()-1){
-            this->position.ry() = this->game->getBoard().height()-1 - size;
+        if(this->position.ry() + this->size > this->game->getBoard().height()+16){
+            this->position.ry() = this->game->getBoard().height()+16 - size;
         }
     }
     else if(direction == DOWN)
     {
         this->position.ry() = this->position.y() - (this->speed*dt);
-        if(this->position.y()-this->size<0){
+        if(this->position.y()-this->size < 0){
             this->position.ry() = size;
         }
     }

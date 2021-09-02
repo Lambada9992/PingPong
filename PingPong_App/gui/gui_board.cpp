@@ -7,8 +7,8 @@ Gui_board::Gui_board(Game *game, QObject *object, QGraphicsItem *parent) : QObje
     this->setRect(0,0,game->getBoard().width()+14,game->getBoard().height()+14);
 
     gui_ball = new Gui_ball(game->getBall(), this);
-    gui_padles.append(new Gui_Paddle(game->getPadle(0), this));
-    gui_padles.append(new Gui_Paddle(game->getPadle(1), this));
+    gui_padles.append(new Gui_Paddle(game->getPadle(0),"red", this));
+    gui_padles.append(new Gui_Paddle(game->getPadle(1),"blue", this));
     connect(this->game,SIGNAL(updateGui()),this,SLOT(update()),Qt::BlockingQueuedConnection);
 }
 

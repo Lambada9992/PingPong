@@ -79,13 +79,16 @@ void Ball::move(double dt)
                     move(hdtLeft);
                 }else{
                     //score point
+
                     this->position = this->game->getBoard().center();
                     this->randomVelocity(45);
                 }
             }else{
+
                 // score point
                 this->position = this->game->getBoard().center();
                 this->randomVelocity(45);
+
             }
         }
     }
