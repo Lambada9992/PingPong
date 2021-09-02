@@ -47,6 +47,15 @@ MainMenuScene::MainMenuScene(Game *game, GuiView *parent)
     connect(multiplayerButton,SIGNAL(clicked()),this,SLOT(multiplayerButtonClicked()));
     addWidget(multiplayerButton);
 
+    settingsButton = new QPushButton(QString("Settings"));
+    w = this->width()/4;
+    h = this->height()/18;
+    x = this->width()/2 - w/2;
+    y = 18*m_scale;
+    settingsButton->setGeometry(x,y,w,h);
+    connect(settingsButton,SIGNAL(clicked()),this,SLOT(settingsButtonClicked()));
+    addWidget(settingsButton);
+
 }
 
 void MainMenuScene::singleplayerButtonClicked()
@@ -57,4 +66,9 @@ void MainMenuScene::singleplayerButtonClicked()
 void MainMenuScene::multiplayerButtonClicked()
 {
     emit showMultiplayerMenu();
+}
+
+void MainMenuScene::settingsButtonClicked()
+{
+    emit showSettings();
 }

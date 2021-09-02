@@ -17,7 +17,7 @@ void Gui_Paddle::updatePosition()
     }
     else if(this->paddle->getPosition().rx() != 0)
     {
-        this->setPos(this->paddle->getPosition() - QPointF(-17,paddle->getSize()));
+        this->setPos(this->paddle->getPosition() - QPointF(-16,paddle->getSize()));
     }
 
 
