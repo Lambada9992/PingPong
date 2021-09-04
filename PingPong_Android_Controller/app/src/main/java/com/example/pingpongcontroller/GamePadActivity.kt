@@ -13,6 +13,7 @@ class GamePadActivity : AppCompatActivity() {
     lateinit var sSide: SwitchCompat
     lateinit var bDown: Button
     lateinit var bUp: Button
+    lateinit var bShot: Button
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +23,10 @@ class GamePadActivity : AppCompatActivity() {
         sSide = findViewById(R.id.sSide)
         bDown = findViewById(R.id.bDown)
         bUp = findViewById(R.id.bUp)
-        bDown.setOnTouchListener(leftOnTouch)
-        bUp.setOnTouchListener(rightOnTouch)
+        bShot = findViewById(R.id.bShot)
+        bDown.setOnTouchListener(downOnTouch)
+        bUp.setOnTouchListener(upOnTouch)
+        bShot.setOnTouchListener(shotOnTouch)
     }
 
     override fun onDestroy() {
@@ -32,7 +35,7 @@ class GamePadActivity : AppCompatActivity() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    val leftOnTouch: View.OnTouchListener = View.OnTouchListener { _, event ->
+    val downOnTouch: View.OnTouchListener = View.OnTouchListener { _, event ->
         if(event.action == MotionEvent.ACTION_DOWN) {
             PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,true)
         } else if (event.action == MotionEvent.ACTION_UP) {
@@ -42,11 +45,19 @@ class GamePadActivity : AppCompatActivity() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    val rightOnTouch: View.OnTouchListener = View.OnTouchListener { _, event ->
+    val upOnTouch: View.OnTouchListener = View.OnTouchListener { _, event ->
         if(event.action == MotionEvent.ACTION_DOWN) {
             PingPongController.makeMove(getSide(),PingPongController.Move.UP,true)
         } else if (event.action == MotionEvent.ACTION_UP) {
             PingPongController.makeMove(getSide(),PingPongController.Move.UP,false)
+        }
+        false
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    val shotOnTouch: View.OnTouchListener = View.OnTouchListener { _, event ->
+        if(event.action == MotionEvent.ACTION_DOWN) {
+            PingPongController.shot(getSide());
         }
         false
     }

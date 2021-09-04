@@ -24,6 +24,19 @@ object PingPongController : ConnectionHandler.ConnectionHandleInterpreter {
             "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
     private val IPV4_PATTERN: Pattern = Pattern.compile(IPV4_REGEX)
 
+    fun shot(side: Side){
+        var message: String = ""
+
+        message += when(side){
+            Side.LEFT -> "L"
+            Side.RIGHT -> "R"
+        }
+
+        message += "SHOT"
+
+        connectionHandler?.write(message)
+    }
+
     fun makeMove(side: Side,move: Move,press: Boolean){
         var message: String = ""
 
