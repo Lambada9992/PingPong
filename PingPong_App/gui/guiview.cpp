@@ -31,7 +31,7 @@ GuiView::GuiView(Game &game,QWidget *parent) : QGraphicsView(parent)
 
 void GuiView::startSinglePlayer()
 {
-    setFixedSize(game->getBoard().width()+58,game->getBoard().height()+14);
+    setFixedSize(gameScene->getGameSceneRect()->rect().width()+(2*game->getPadle(0)->getWidth()),gameScene->getGameSceneRect()->rect().height());
     this->setScene(gameScene);
     game->startGame();
     //this->scale(1.5,1.5);

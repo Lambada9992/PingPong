@@ -13,6 +13,7 @@ private:
     Game *game;
     QPointF position;
     double size;
+    double width = 15;
     double speed = 400;
     Direction direction = NONE;
 
@@ -26,7 +27,10 @@ public:
     double getSize() const;
 
     Direction getDirection() const;
+
     void setDirection(const Direction &value);
+    void setSize(double value);
+    double getWidth() const;
 };
 
 #endif // PADDLE_H

@@ -3,8 +3,9 @@
 
 Gui_board::Gui_board(Game *game, QObject *object, QGraphicsItem *parent) : QObject(object), QGraphicsRectItem(parent)
 {
+    setBrush(QColor(255, 0, 0, 127));
     this->game = game;
-    this->setRect(0,0,game->getBoard().width()+14,game->getBoard().height()+14);
+    this->setRect(0,0,game->getBoard().width()+game->getBall()->getSize(),game->getBoard().height()+game->getBall()->getSize());
 
     gui_ball = new Gui_ball(game->getBall(), this);
     gui_padles.append(new Gui_Paddle(game->getPadle(0),"red", this));

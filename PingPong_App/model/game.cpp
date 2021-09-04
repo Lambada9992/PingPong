@@ -3,10 +3,27 @@
 #include <qthread.h>
 #include <QDebug>
 #include <QKeyEvent>
+Game::Game():
+    board(0,0,800,600)
+{
+    board.setRect(0,0,boardSizeX,boardSizeY);
+    this->ball = new Ball(this);
+    this->padles = new QList<Paddle *>();
+    this->padles->append(new Paddle(this, QPointF(0,board.height()/2), board.height()/8));
+    this->padles->append(new Paddle(this, QPointF(board.width()-1,board.height()/2), board.height()/8));
+    connect(&server,SIGNAL(messageToInterprete(QString)),this,SLOT(interpreteMessage(QString)),Qt::QueuedConnection);
+    startServer();
+}
 
 void Game::startGame()
 {
+    board.setRect(0,0,boardSizeX,boardSizeY);
+    this->getPadle(0)->setSize(board.height()/8);
+    this->getPadle(0)->setPosition(QPoint(0, board.height()/2));
+    this->getPadle(1)->setSize(board.height()/8);
+    this->getPadle(1)->setPosition(QPoint(board.width()-1,board.height()/2));
     this->start();
+
 }
 
 void Game::stopGame()
@@ -80,15 +97,14 @@ Ball *Game::getBall() const
     return ball;
 }
 
-Game::Game():
-    board(0,0,800,600)
+void Game::setBoardSizeX(int value)
 {
-    this->ball = new Ball(this);
-    this->padles = new QList<Paddle *>();
-    this->padles->append(new Paddle(this, QPointF(0,board.height()/2), board.height()/8));
-    this->padles->append(new Paddle(this, QPointF(board.width()-1,board.height()/2), board.height()/8));
-    connect(&server,SIGNAL(messageToInterprete(QString)),this,SLOT(interpreteMessage(QString)),Qt::QueuedConnection);
-    startServer();
+    boardSizeX = value;
+}
+
+void Game::setBoardSizeY(int value)
+{
+    boardSizeY = value;
 }
 
 Game::~Game()
