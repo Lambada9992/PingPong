@@ -13,8 +13,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var etIp: EditText
     private lateinit var bConnection: Button
 
-    val IP = "192.168.0.13"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
     private val connectOnClick: View.OnClickListener = View.OnClickListener {
         val ipAddress = etIp.text.toString()
-        //PingPongController.connect(IP,1234)
         PingPongController.connect(ipAddress,1234)
         startActivity(Intent(this,GamePadActivity::class.java))
     }
