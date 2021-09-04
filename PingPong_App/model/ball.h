@@ -16,11 +16,16 @@ private:
     int size = 14;
     double speed;
 
+    Paddle *parent;
+
 public:
 
     Ball(Game *game);
 
-    void move(double dt);
+    void move(double dt,bool &point);
+    double getAngle();
+
+    void setVelocityByAngle(double angle);
 
     QPointF getPosition() const;
     void setPosition(const QPoint &value);
@@ -28,9 +33,8 @@ public:
     void randomVelocity(double angle);
     int getSize() const;
 
-private:
-    double getAngle();
-    Paddle *findPaddle(int possitionX);
+    Paddle *getParent() const;
+    void setParent(Paddle *value);
 
 };
 

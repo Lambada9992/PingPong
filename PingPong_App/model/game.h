@@ -17,6 +17,8 @@
 class Game : public QThread
 {
     Q_OBJECT
+public:
+    enum Side{LEFT=0,RIGHT=1};
 private:
     QRect board;
     bool isLive = false;
@@ -41,23 +43,20 @@ public:
     void startServer();
     void stopServer();
 
+    void shot(Side side);
+
     QRect getBoard() const;
-
     QList<Paddle *> *getPadles() const;
-
     Ball *getBall() const;
-
     QMutex getMutex() const;
-
-    Paddle *getPadle(int i) const;
-
+    Paddle *getPadle(Side side) const;
+    Side getSide(Paddle *paddle);
     void setBoardSizeX(int value);
-
     void setBoardSizeY(int value);
-
 private:
     void makeMoves(long double dt);
     void prepareGame();
+    void scorePoint();
 public slots:
     void interpreteMessage(QString message);
 

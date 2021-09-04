@@ -3,6 +3,8 @@
 #include <qthread.h>
 #include <QDebug>
 #include <QKeyEvent>
+#include <QtMath>
+
 Game::Game():
     board(0,0,800,600)
 {
@@ -18,10 +20,10 @@ Game::Game():
 void Game::startGame()
 {
     board.setRect(0,0,boardSizeX,boardSizeY);
-    this->getPadle(0)->setSize(board.height()/8);
-    this->getPadle(0)->setPosition(QPoint(0, board.height()/2));
-    this->getPadle(1)->setSize(board.height()/8);
-    this->getPadle(1)->setPosition(QPoint(board.width()-1,board.height()/2));
+    this->getPadle(Game::LEFT)->setSize(board.height()/8);
+    this->getPadle(Game::LEFT)->setPosition(QPoint(0, board.height()/2));
+    this->getPadle(Game::RIGHT)->setSize(board.height()/8);
+    this->getPadle(Game::RIGHT)->setPosition(QPoint(board.width()-1,board.height()/2));
     this->start();
 
 }
@@ -43,12 +45,59 @@ void Game::stopServer()
     server;
 }
 
+void Game::shot(Game::Side side)
+{
+    Paddle *parent = this->ball->getParent();
+    if(parent == NULL) return;
+    Side parentSide = getSide(parent);
+    if(side != parentSide) return;
+
+    switch(side){
+    case Game::LEFT:{
+        if(parent->getDirection() == Paddle::UP){
+            ball->setVelocityByAngle(qDegreesToRadians(30.0));
+        }
+        if(parent->getDirection() == Paddle::DOWN){
+            ball->setVelocityByAngle(qDegreesToRadians(-30.0));
+        }
+        if(parent->getDirection() == Paddle::NONE){
+            ball->setVelocityByAngle(qDegreesToRadians(0.0));
+        }
+    }
+        break;
+    case Game::RIGHT:{
+        if(parent->getDirection() == Paddle::UP){
+            ball->setVelocityByAngle(qDegreesToRadians(150.0));
+        }
+        if(parent->getDirection() == Paddle::DOWN){
+            ball->setVelocityByAngle(qDegreesToRadians(210.0));
+        }
+        if(parent->getDirection() == Paddle::NONE){
+            ball->setVelocityByAngle(qDegreesToRadians(180.0));
+        }
+    }
+        break;
+    }
+
+    this->ball->setParent(NULL);
+}
+
 void Game::prepareGame()
 {
     this->score.first = 0;
     this->score.second = 0;
     this->ball->setPosition(this->board.center());
     this->ball->randomVelocity(45);
+}
+
+void Game::scorePoint()
+{
+    if(this->ball->getPosition().x()<= getBoard().width()/2){
+        score.second++;
+    }else{
+        score.first++;
+    }
+    qDebug()<< score << " " << this->ball->getPosition();
 }
 
 void Game::run()
@@ -62,7 +111,6 @@ void Game::run()
         long double dtns = ((long double)std::chrono::duration_cast<std::chrono::nanoseconds>(dt).count())/1000000000;   //time in s
         makeMoves(dtns);
         emit updateGui();
-
         mutex.lock();
         if(!isLive)break;
         mutex.unlock();
@@ -72,7 +120,11 @@ void Game::run()
 
 void Game::makeMoves(long double dt)
 {
-    this->ball->move(dt);
+    bool point = false;
+    this->ball->move(dt,point);
+    if(point){
+        scorePoint();
+    }
     for(int i=0;i<this->padles->size();i++){
         (*this->padles)[i]->move(dt);
     }
@@ -87,9 +139,16 @@ QList<Paddle *> *Game::getPadles() const
 {
     return padles;
 }
-Paddle *Game:: getPadle(int i) const
+Paddle *Game:: getPadle(Side side) const
 {
-    return (*this->padles)[i];
+    return (*this->padles)[side];
+}
+
+Game::Side Game::getSide(Paddle *paddle)
+{
+    if(paddle == getPadle(LEFT)) return LEFT;
+    if(paddle == getPadle(RIGHT)) return RIGHT;
+    throw std::invalid_argument("Paddle not found.");
 }
 
 Ball *Game::getBall() const
@@ -120,12 +179,14 @@ Game::~Game()
 
 void Game::interpreteMessage(QString message)
 {
-    qDebug() << message;
     Paddle *paddle;
+    Side side;
     if(message.startsWith("L")){
-        paddle = getPadle(0);
+        paddle = getPadle(Game::LEFT);
+        side = Game::LEFT;
     } else {
-        paddle = getPadle(1);
+        paddle = getPadle(Game::RIGHT);
+        side = Game::RIGHT;
     }
 
     if(message.contains("UP")){
@@ -136,6 +197,9 @@ void Game::interpreteMessage(QString message)
     }
     if(message.contains("NONE")){
         paddle->setDirection(Paddle::NONE);
+    }
+    if(message.contains("SHOT")){
+        shot(side);
     }
 
 }
