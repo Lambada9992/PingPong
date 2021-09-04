@@ -28,7 +28,8 @@ private:
     //NETWORK
     TcpServer server;
     qintptr port = 1234;
-
+    int boardSizeX = 800;
+    int boardSizeY = 200;
 
 public:
     Game();
@@ -49,6 +50,11 @@ public:
     QMutex getMutex() const;
 
     Paddle *getPadle(int i) const;
+
+    void setBoardSizeX(int value);
+
+    void setBoardSizeY(int value);
+
 private:
     void makeMoves(long double dt);
     void prepareGame();

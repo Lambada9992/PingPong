@@ -61,3 +61,8 @@ void SettingsScene::mainMenuButtonClicked()
 {
     emit showMainMenu();
 }
+void SettingsScene::saveButtonClicked()
+{
+    game->setBoardSizeX(boardSizeXSpinBox->value());
+    game->setBoardSizeY(boardSizeYSpinBox->value());
+}

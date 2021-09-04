@@ -13,7 +13,7 @@ private:
     Game *game;
     QPointF position;
     QPointF velocity;
-    int size;
+    int size = 14;
     double speed;
 
 public:

@@ -26,6 +26,7 @@ public:
 
 public slots:
     void mainMenuButtonClicked();
+    void saveButtonClicked();
 
 signals:
     void showMainMenu();
