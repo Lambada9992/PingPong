@@ -8,13 +8,14 @@ import java.lang.IllegalArgumentException
 import java.net.ConnectException
 import java.net.Socket
 
-class PingPongController : ConnectionHandler.ConnectionHandleInterpreter {
+object PingPongController : ConnectionHandler.ConnectionHandleInterpreter {
 
     var connectionHandler: ConnectionHandler? = null
 
-    enum class Move{LEFT,RIGHT,NONE}
-    var left = false
-    var right = false
+    enum class Move{DOWN,UP,NONE}
+    enum class Side{LEFT,RIGHT}
+    var down = false
+    var up = false
     var lastMove = Move.NONE
 
     private val IPV4_REGEX = "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\." +
@@ -23,32 +24,42 @@ class PingPongController : ConnectionHandler.ConnectionHandleInterpreter {
             "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
     private val IPV4_PATTERN: Pattern = Pattern.compile(IPV4_REGEX)
 
-    fun makeMove(move: Move,press: Boolean){
+    fun makeMove(side: Side,move: Move,press: Boolean){
+        var message: String = ""
+
+        message += when(side){
+            Side.LEFT -> "L"
+            Side.RIGHT -> "R"
+        }
+
         when(move){
-            Move.LEFT -> left = press
-            Move.RIGHT -> right = press
+            Move.DOWN -> down = press
+            Move.UP -> up = press
             else -> throw IllegalArgumentException("NONE can't be pressed or released.")
         }
+
         when{
-            left == right -> {
+            down == up -> {
                 if (lastMove != Move.NONE) {
-                    connectionHandler?.write("NONE")
+                    message += "NONE"
                     lastMove = Move.NONE
                 }
             }
-            left && !right -> {
-                if(lastMove != Move.LEFT) {
-                    connectionHandler?.write("LEFT")
-                    lastMove = Move.LEFT
+            down && !up -> {
+                if(lastMove != Move.DOWN) {
+                    message += "DOWN"
+                    lastMove = Move.DOWN
                 }
             }
-            !left && right -> {
-                if(lastMove != Move.RIGHT) {
-                    connectionHandler?.write("RIGHT")
-                    lastMove = Move.RIGHT
+            !down && up -> {
+                if(lastMove != Move.UP) {
+                    message += "UP"
+                    lastMove = Move.UP
                 }
             }
         }
+
+        connectionHandler?.write(message)
     }
 
     override fun interpretIncomingMessage(message: String?) {

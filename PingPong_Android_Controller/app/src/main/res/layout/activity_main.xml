@@ -16,23 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/bLeft"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Left"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bRight"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/bRight"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Right"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bLeft"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/etIpAddress"
@@ -41,7 +24,6 @@
         android:digits="0123456789."
         android:ems="10"
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/bLeft"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.258"
         app:layout_constraintStart_toStartOf="parent"

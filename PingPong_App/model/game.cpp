@@ -104,6 +104,23 @@ Game::~Game()
 
 void Game::interpreteMessage(QString message)
 {
+    qDebug() << message;
+    Paddle *paddle;
+    if(message.startsWith("L")){
+        paddle = getPadle(0);
+    } else {
+        paddle = getPadle(1);
+    }
+
+    if(message.contains("UP")){
+        paddle->setDirection(Paddle::DOWN);
+    }
+    if(message.contains("DOWN")){
+        paddle->setDirection(Paddle::UP);
+    }
+    if(message.contains("NONE")){
+        paddle->setDirection(Paddle::NONE);
+    }
 
 }
 
