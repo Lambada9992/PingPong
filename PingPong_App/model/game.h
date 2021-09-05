@@ -31,7 +31,7 @@ private:
     TcpServer server;
     qintptr port = 1234;
     int boardSizeX = 800;
-    int boardSizeY = 200;
+    int boardSizeY = 600;
 
 public:
     Game();
