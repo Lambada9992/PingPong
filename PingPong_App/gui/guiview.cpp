@@ -28,11 +28,7 @@ GuiView::GuiView(Game &game,QWidget *parent) : QGraphicsView(parent)
 
     this->mainMenuScene = new MainMenuScene(this->game,this);
     connect(this->mainMenuScene,SIGNAL(startSinglePlayer()),this,SLOT(startSinglePlayer()));
-    connect(this->mainMenuScene,SIGNAL(showMultiplayerMenu()),this,SLOT(showMultiplayerMenu()));
     connect(this->mainMenuScene,SIGNAL(showSettings()),this,SLOT(showSettings()));
-
-    this->multiplayerMenuScene = new MultiplayerMenuScene(this->game,this);
-    connect(this->multiplayerMenuScene,SIGNAL(showMainMenu()),this,SLOT(showMainMenu()));
 
     this->settingsScene = new SettingsScene(this->game,this);
     connect(this->settingsScene,SIGNAL(showMainMenu()),this,SLOT(showMainMenu()));
@@ -51,10 +47,6 @@ void GuiView::startSinglePlayer()
     game->startGame();
 }
 
-void GuiView::showMultiplayerMenu()
-{
-    this->setScene(this->multiplayerMenuScene);
-}
 
 void GuiView::showMainMenu()
 {
