@@ -44,7 +44,7 @@ void GuiView::startSinglePlayer()
     gameScene->prepare();
     setFixedSize(
                 gameScene->getGameSceneRect()->rect().width()+1,
-                gameScene->getGameSceneRect()->rect().height()+1);
+                gameScene->getGameSceneRect()->rect().height()+1+gameScene->getScore()->height());
     this->setScene(gameScene);
     game->startGame();
 }
