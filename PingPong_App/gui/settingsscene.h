@@ -23,6 +23,7 @@ private:
     QSpinBox *ballSpeedSpinBox;
     QSpinBox *paddleSpeedSpinBox;
     QSpinBox *paddleSizeSpinBox;
+    QSpinBox *maxScoreSpinBox;
 
 
 public:

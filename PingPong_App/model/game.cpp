@@ -5,8 +5,29 @@
 #include <QKeyEvent>
 #include <QtMath>
 
+void Game::setMaxScore(int value)
+{
+    maxScore = value;
+}
+
+int Game::getMaxScore() const
+{
+    return maxScore;
+}
+
+bool Game::getIsFinished() const
+{
+    return isFinished;
+}
+
+void Game::setIsFinished(bool value)
+{
+    isFinished = value;
+}
+
 Game::Game():
-    board(0,0,800,200)
+    board(0,0,800,200),
+    maxScore(15)
 {
     this->ball = new Ball(this);
     this->padles = new QList<Paddle *>();
@@ -115,9 +136,19 @@ void Game::scorePoint()
     qDebug()<< score << " " << this->ball->getPosition();
 }
 
+bool Game::checkScore()
+{
+    if(score.first>=maxScore || score.second>=maxScore){
+        isFinished = true;
+        return true;
+    }
+    return false;
+}
+
 void Game::run()
 {
     this->isLive = true;
+    this->isFinished = false;
     auto lastTime = std::chrono::high_resolution_clock::now();
     this->prepareGame();
     while (true) {
@@ -125,11 +156,15 @@ void Game::run()
         lastTime = std::chrono::high_resolution_clock::now();
         long double dtns = ((long double)std::chrono::duration_cast<std::chrono::nanoseconds>(dt).count())/1000000000;   //time in s
         makeMoves(dtns);
+        if(checkScore()){
+            break;
+        };
         emit updateGui();
         mutex.lock();
         if(!isLive)break;
         mutex.unlock();
     }
+    emit updateGui();
 }
 
 

@@ -15,13 +15,13 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     QFont titleFont("comic sans",m_scale*2,QFont::Bold);
     title->setFont(titleFont);
     x = this->width()/2 - title->boundingRect().width()/2;
-    y = 3*m_scale;
+    y = 1*m_scale;
     title->setPos(x,y);
     addItem(title);
 
     QGraphicsTextItem *widthText = new QGraphicsTextItem(QString("Szerokość:"));
     x = this->width()/2 - widthText->boundingRect().width()/2;
-    y = 6*m_scale;
+    y = 4*m_scale;
     widthText->setPos(x,y);
     addItem(widthText);
 
@@ -29,7 +29,7 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 7.5*m_scale;
+    y = 5.5*m_scale;
     boardSizeXSpinBox->setGeometry(x,y,w,h);
     boardSizeXSpinBox->setRange(0,2000);
     boardSizeXSpinBox->setValue(800);
@@ -38,7 +38,7 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     QGraphicsTextItem *heightText = new QGraphicsTextItem(QString("Wysokość:"));
     title->setFont(titleFont);
     x = this->width()/2 - heightText->boundingRect().width()/2;
-    y = 9.5*m_scale;
+    y = 7.5*m_scale;
     heightText->setPos(x,y);
     addItem(heightText);
 
@@ -46,7 +46,7 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 11*m_scale;
+    y = 9*m_scale;
     boardSizeYSpinBox->setGeometry(x,y,w,h);
     boardSizeYSpinBox->setRange(0,1200);
     boardSizeYSpinBox->setValue(600);
@@ -54,7 +54,7 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
 
     QGraphicsTextItem *ballSpeedText = new QGraphicsTextItem(QString("Prędkość piłki:"));
     x = this->width()/2 - ballSpeedText->boundingRect().width()/2;
-    y = 13*m_scale;
+    y = 11*m_scale;
     ballSpeedText->setPos(x,y);
     addItem(ballSpeedText);
 
@@ -62,7 +62,7 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 14.5*m_scale;
+    y = 12.5*m_scale;
     ballSpeedSpinBox->setGeometry(x,y,w,h);
     ballSpeedSpinBox->setRange(0,1200);
     ballSpeedSpinBox->setValue(350);
@@ -70,7 +70,7 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
 
     QGraphicsTextItem *paddleSpeedText = new QGraphicsTextItem(QString("Prędkość paletki:"));
     x = this->width()/2 - paddleSpeedText->boundingRect().width()/2;
-    y = 16.5*m_scale;
+    y = 14.5*m_scale;
     paddleSpeedText->setPos(x,y);
     addItem(paddleSpeedText);
 
@@ -78,7 +78,7 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 18*m_scale;
+    y = 16*m_scale;
     paddleSpeedSpinBox->setGeometry(x,y,w,h);
     paddleSpeedSpinBox->setRange(0,1200);
     paddleSpeedSpinBox->setValue(350);
@@ -86,7 +86,7 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
 
     QGraphicsTextItem *paddleSizeText = new QGraphicsTextItem(QString("Rozmiar paletki:"));
     x = this->width()/2 - paddleSizeText->boundingRect().width()/2;
-    y = 20*m_scale;
+    y = 18*m_scale;
     paddleSizeText->setPos(x,y);
     addItem(paddleSizeText);
 
@@ -94,17 +94,33 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 21.5*m_scale;
+    y = 19.5*m_scale;
     paddleSizeSpinBox->setGeometry(x,y,w,h);
     paddleSizeSpinBox->setRange(0,1200);
     paddleSizeSpinBox->setValue(100);
     addWidget(paddleSizeSpinBox);
 
+    QGraphicsTextItem *maxScoreText = new QGraphicsTextItem(QString("Maksymalny wynik:"));
+    x = this->width()/2 - maxScoreText->boundingRect().width()/2;
+    y = 21.5*m_scale;
+    maxScoreText->setPos(x,y);
+    addItem(maxScoreText);
+
+    maxScoreSpinBox = new QSpinBox();
+    w = this->width()/4;
+    h = this->height()/18;
+    x = this->width()/2 - w/2;
+    y = 23*m_scale;
+    maxScoreSpinBox->setGeometry(x,y,w,h);
+    maxScoreSpinBox->setRange(1,100);
+    maxScoreSpinBox->setValue(15);
+    addWidget(maxScoreSpinBox);
+
     saveButton = new QPushButton(QString("Save Changes"));
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 25.5*m_scale;
+    y = 27.5*m_scale;
     saveButton->setGeometry(x,y,w,h);
     connect(saveButton,SIGNAL(clicked()),this,SLOT(saveButtonClicked()));
     addWidget(saveButton);
@@ -113,7 +129,7 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 28.5*m_scale;
+    y = 30.5*m_scale;
     mainMenuButton->setGeometry(x,y,w,h);
     connect(mainMenuButton,SIGNAL(clicked()),this,SLOT(mainMenuButtonClicked()));
     addWidget(mainMenuButton);
@@ -129,4 +145,5 @@ void SettingsScene::saveButtonClicked()
     game->setPaddleSize(paddleSizeSpinBox->value());
     game->setPaddleSpeed(paddleSpeedSpinBox->value());
     game->setBallSpeed(ballSpeedSpinBox->value());
+    game->setMaxScore(maxScoreSpinBox->value());
 }
