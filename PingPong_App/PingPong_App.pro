@@ -15,10 +15,8 @@ SOURCES += \
     gui/gui_ball.cpp \
     gui/gui_board.cpp \
     gui/gui_paddle.cpp \
-    gui/gui_score.cpp \
     gui/guiview.cpp \
     gui/mainmenuscene.cpp \
-    gui/multiplayermenuscene.cpp \
     gui/settingsscene.cpp \
     main.cpp \
     model/ball.cpp \
@@ -32,10 +30,8 @@ HEADERS += \
     gui/gui_ball.h \
     gui/gui_board.h \
     gui/gui_paddle.h \
-    gui/gui_score.h \
     gui/guiview.h \
     gui/mainmenuscene.h \
-    gui/multiplayermenuscene.h \
     gui/settingsscene.h \
     model/ball.h \
     model/game.h \
