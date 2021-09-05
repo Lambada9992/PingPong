@@ -1,5 +1,5 @@
 #include "ball.h"
-#include <math.h>
+#include <QtMath>
 #include <QRect>
 #include <model/game.h>
 #include <QDebug>
@@ -9,22 +9,32 @@ int Ball::getSize() const
     return size;
 }
 
+Paddle *Ball::getParent() const
+{
+    return parent;
+}
+
+void Ball::setParent(Paddle *value)
+{
+    parent = value;
+}
+
 Ball::Ball(Game *game)
 {
     this->game = game;
-    this->speed = 100; //how many pixels per sec
-
+    this->speed = 500; //how many pixels per sec
+    this->parent = NULL;
 }
 
 // TODO: Dodanie logiki w przypadku uderzenia w Paddle lub score punktu
-void Ball::move(double dt)
+void Ball::move(double dt,bool &point)
 {
 
-    //    qDebug() << "dt" << dt;
-    //    qDebug() << "speed" <<  speed;
-    //    qDebug() << "distance" <<  speed * dt;
-
     if(dt <= 0) return;
+    if(parent != NULL){
+        this->position = parent->getPosition();
+        return;
+    }
 
     QPointF nextPossition = (this->position + (this->velocity*dt));
     double nX = nextPossition.rx();
@@ -64,7 +74,7 @@ void Ball::move(double dt)
         if(vdtLeft>hdtLeft){//uderzenie w pionie
             this->position = vHitPoint;
             this->velocity.setY(-this->velocity.ry());
-            move(vdtLeft);
+            move(vdtLeft,point);
         }else{// uderzenie w poziomie
             Paddle *paddle = NULL;
             for(auto *_paddle : *this->game->getPadles()){
@@ -75,20 +85,27 @@ void Ball::move(double dt)
             if(paddle != NULL){
                 if(abs(paddle->getPosition().ry() - position.ry())<paddle->getSize()){
                     this->position = hHitPoint;
-                    this->velocity.setX(-this->velocity.rx());
-                    move(hdtLeft);
+                    this->velocity.rx() *= -1;
+                    int side = (this->game->getSide(paddle)*2 -1)*-1;
+                    double angleToAdd = 0;
+                    angleToAdd += ((this->position.y() - paddle->getPosition().y())/paddle->getSize())*5*side;
+                    if(paddle->getDirection() == Paddle::DOWN){angleToAdd -= 5;}
+                    if(paddle->getDirection() == Paddle::UP){angleToAdd += 5;}
+                    if(qDegreesToRadians(angleToAdd) + getAngle() != M_PI_2 &&
+                            qDegreesToRadians(angleToAdd) + getAngle() != M_PI_2 + M_PI){ //against vertical bouncing
+                        this->setVelocityByAngle(this->getAngle()+(qDegreesToRadians(angleToAdd)));
+                    }
+                    move(hdtLeft,point);
                 }else{
                     //score point
-
-                    this->position = this->game->getBoard().center();
-                    this->randomVelocity(45);
+                    point = true;
+                    this->parent = paddle;
                 }
             }else{
-
-                // score point
+                //score point
+                point = true;
                 this->position = this->game->getBoard().center();
                 this->randomVelocity(45);
-
             }
         }
     }
@@ -108,30 +125,53 @@ void Ball::setPosition(const QPoint &value)
 void Ball::randomVelocity(double angle)
 {
     double randAngle =  -angle + ((double) rand() / (RAND_MAX))*(angle*2); //random angle from <-angle : +angle>
-    qDebug() << randAngle;
+    setVelocityByAngle(qDegreesToRadians(randAngle));
     int direction = ((rand()%2)*2)-1; // random 1 or -1
-    double xv = speed * cos(randAngle*M_PI/180) * direction;
-    double yv = speed * sin(randAngle*M_PI/180) * direction;
-
-
-    velocity.setX(xv);
-    velocity.setY(yv);
+    velocity *= direction;
 }
 
 double Ball::getAngle()
-{
-    return atan(((double)this->velocity.ry())/((double)this->velocity.rx()));
-}
-
-Paddle *Ball::findPaddle(int possitionX)
-{
-    QList<Paddle *> paddles = *this->game->getPadles();
-    for(int i=0; i< paddles.size(); i++){
-        if(paddles[i]->getPosition().rx() == possitionX){
-            return paddles[i];
+{  
+    if(velocity.y() == 0){
+        if(velocity.x() > 0){
+            return 0;
+        }else if(velocity.x() <0){
+            return M_PI;
+        }else{
+            throw std::invalid_argument("Cant count angle because velocity is equal (0,0)");
         }
     }
-    throw std::invalid_argument("Invalid paddle position.");
+
+    if(velocity.x() == 0){
+        if(velocity.y() > 0){
+            return M_PI_2;
+        }else if(velocity.y() < 0){
+            return M_PI+M_PI_2;
+        }else{
+            throw std::invalid_argument("Cant count angle because velocity is equal (0,0)");
+        }
+    }
+
+    if(velocity.y()>0){
+        if(velocity.x()>=0){
+            return atan(abs(this->velocity.ry())/abs(this->velocity.rx()));
+        }else{
+            return atan(abs(this->velocity.x())/abs(this->velocity.y())) + M_PI_2;
+        }
+    }else{
+        if(velocity.x()<0){
+            return atan(abs(this->velocity.ry())/abs(this->velocity.rx())) + M_PI;
+        }else{
+            return atan(abs(this->velocity.x())/abs(this->velocity.y())) + M_PI + M_PI_2;
+        }
+    }
 }
+
+void Ball::setVelocityByAngle(double angle)
+{
+    velocity.setX(speed * cos(angle));
+    velocity.setY(speed * sin(angle));
+}
+
 
 

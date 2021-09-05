@@ -31,7 +31,7 @@ GuiView::GuiView(Game &game,QWidget *parent) : QGraphicsView(parent)
 
 void GuiView::startSinglePlayer()
 {
-    setFixedSize(gameScene->getGameSceneRect()->rect().width()+(2*game->getPadle(0)->getWidth()),gameScene->getGameSceneRect()->rect().height());
+    setFixedSize(gameScene->getGameSceneRect()->rect().width()+(2*game->getPadle(Game::LEFT)->getWidth()),gameScene->getGameSceneRect()->rect().height());
     this->setScene(gameScene);
     game->startGame();
     //this->scale(1.5,1.5);
@@ -59,25 +59,32 @@ void GuiView::keyPressEvent(QKeyEvent *event)
     {
     case Qt::Key_S:
     {
-        this->game->getPadle(0)->setDirection(Paddle::UP);
+        this->game->getPadle(Game::LEFT)->setDirection(Paddle::UP);
     }
         break;
     case Qt::Key_W:
     {
-        this->game->getPadle(0)->setDirection(Paddle::DOWN);
+        this->game->getPadle(Game::LEFT)->setDirection(Paddle::DOWN);
     }
         break;
     case Qt::Key_Down:
     {
-        this->game->getPadle(1)->setDirection(Paddle::UP);
+        this->game->getPadle(Game::RIGHT)->setDirection(Paddle::UP);
     }
         break;
     case Qt::Key_Up:
     {
-        this->game->getPadle(1)->setDirection(Paddle::DOWN);
+        this->game->getPadle(Game::RIGHT)->setDirection(Paddle::DOWN);
+    }
+        break;
+    case Qt::Key::Key_Space:
+    {
+        this->game->shot(Game::LEFT);
+        this->game->shot(Game::RIGHT);
     }
         break;
     }
+
 }
 
 void GuiView::keyReleaseEvent(QKeyEvent *event)
@@ -86,22 +93,22 @@ void GuiView::keyReleaseEvent(QKeyEvent *event)
     {
     case Qt::Key_W:
     {
-        this->game->getPadle(0)->setDirection(Paddle::NONE);
+        this->game->getPadle(Game::LEFT)->setDirection(Paddle::NONE);
     }
         break;
     case Qt::Key_S:
     {
-        this->game->getPadle(0)->setDirection(Paddle::NONE);
+        this->game->getPadle(Game::LEFT)->setDirection(Paddle::NONE);
     }
         break;
     case Qt::Key_Up:
     {
-        this->game->getPadle(1)->setDirection(Paddle::NONE);
+        this->game->getPadle(Game::RIGHT)->setDirection(Paddle::NONE);
     }
         break;
     case Qt::Key_Down:
     {
-        this->game->getPadle(1)->setDirection(Paddle::NONE);
+        this->game->getPadle(Game::RIGHT)->setDirection(Paddle::NONE);
     }
         break;
     }
