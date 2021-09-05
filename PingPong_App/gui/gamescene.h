@@ -3,6 +3,7 @@
 
 #include "model/game.h"
 #include "gui_board.h"
+#include "gui_score.h"
 
 #include <QGraphicsScene>
 #include <QPushButton>
@@ -16,6 +17,7 @@ private:
     Game *game;
     GuiView *parent;
     Gui_board *guiBoard;
+    Gui_Score *guiScore;
     QGraphicsRectItem *gameSceneRect = new QGraphicsRectItem();
 
 public:

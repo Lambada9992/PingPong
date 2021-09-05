@@ -3,7 +3,7 @@
 
 Gui_Score::Gui_Score(Game *game, QObject *object, QGraphicsItem *parent) : QObject(object), QGraphicsRectItem(parent)
 {
-    setBrush(QColor(255, 255, 0, 127));
+    setBrush(QColor(255, 255, 255, 127));
     this->game = game;
-    this->setRect(-30,0,30,game->getBoard().width()+game->getPadle(0)->getWidth()+game->getPadle(1)->getWidth());
+    this->setRect(-game->getPadle(0)->getWidth(),-30,game->getBoard().width()+(2*game->getPadle(0)->getWidth())+14,30);
 }
