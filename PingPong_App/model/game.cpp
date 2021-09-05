@@ -5,6 +5,11 @@
 #include <QKeyEvent>
 #include <QtMath>
 
+QPair<int, int> Game::getScore() const
+{
+    return score;
+}
+
 Game::Game():
     board(0,0,800,600)
 {

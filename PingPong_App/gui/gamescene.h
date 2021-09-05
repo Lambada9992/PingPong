@@ -6,6 +6,7 @@
 
 #include <QGraphicsScene>
 #include <QPushButton>
+#include <QLabel>
 
 class GuiView;
 
@@ -17,10 +18,14 @@ private:
     GuiView *parent;
     Gui_board *guiBoard;
     QGraphicsRectItem *gameSceneRect;
+    QLabel *score;
+
 
 public:
     explicit GameScene(Game *game,GuiView *parent = nullptr);
     QGraphicsRectItem *getGameSceneRect() const;
+private slots:
+    void update();
 };
 
 #endif // MAINMENUSCENE_H
