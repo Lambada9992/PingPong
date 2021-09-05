@@ -21,6 +21,8 @@ private:
 public:
     explicit GameScene(Game *game,GuiView *parent = nullptr);
     QGraphicsRectItem *getGameSceneRect() const;
+
+    void prepare();
 };
 
 #endif // MAINMENUSCENE_H

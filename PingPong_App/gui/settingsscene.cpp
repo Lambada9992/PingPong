@@ -19,7 +19,7 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     title->setPos(x,y);
     addItem(title);
 
-    QSpinBox *boardSizeXSpinBox = new QSpinBox();
+    boardSizeXSpinBox = new QSpinBox();
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
@@ -29,7 +29,7 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     boardSizeXSpinBox->setValue(800);
     addWidget(boardSizeXSpinBox);
 
-    QSpinBox *boardSizeYSpinBox = new QSpinBox();
+    boardSizeYSpinBox = new QSpinBox();
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
@@ -39,7 +39,7 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     boardSizeYSpinBox->setValue(600);
     addWidget(boardSizeYSpinBox);
 
-    QPushButton *saveButton = new QPushButton(QString("Save Changes"));
+    saveButton = new QPushButton(QString("Save Changes"));
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
@@ -48,7 +48,7 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     connect(saveButton,SIGNAL(clicked()),this,SLOT(saveButtonClicked()));
     addWidget(saveButton);
 
-    QPushButton *mainMenuButton = new QPushButton(QString("Back"));
+    mainMenuButton = new QPushButton(QString("Back"));
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
