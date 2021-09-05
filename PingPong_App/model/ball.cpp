@@ -1,7 +1,7 @@
 #include "ball.h"
 #include <QtMath>
 #include <QRect>
-#include <model/game.h>
+#include "model/game.h"
 #include <QDebug>
 
 int Ball::getSize() const
@@ -22,14 +22,13 @@ void Ball::setParent(Paddle *value)
 Ball::Ball(Game *game)
 {
     this->game = game;
-    this->speed = 500; //how many pixels per sec
+    this->speed = 100; //how many pixels per sec
     this->parent = NULL;
 }
 
 // TODO: Dodanie logiki w przypadku uderzenia w Paddle lub score punktu
 void Ball::move(double dt,bool &point)
 {
-
     if(dt <= 0) return;
     if(parent != NULL){
         this->position = parent->getPosition();
