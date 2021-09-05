@@ -18,9 +18,7 @@ Game::Game():
 
 void Game::startGame()
 {
-    this->getPadle(Game::LEFT)->setSize(board.height()/8);
     this->getPadle(Game::LEFT)->setPosition(QPoint(0, board.height()/2));
-    this->getPadle(Game::RIGHT)->setSize(board.height()/8);
     this->getPadle(Game::RIGHT)->setPosition(QPoint(board.width()-1,board.height()/2));
     this->start();
 
@@ -80,6 +78,23 @@ void Game::shot(Game::Side side)
     this->ball->setParent(NULL);
 }
 
+void Game::setPaddleSpeed(double value)
+{
+    this->getPadle(LEFT)->setSpeed(value);
+    this->getPadle(RIGHT)->setSpeed(value);
+}
+
+void Game::setPaddleSize(double value)
+{
+    this->getPadle(LEFT)->setSize(value);
+    this->getPadle(RIGHT)->setSize(value);
+}
+
+void Game::setBallSpeed(double value)
+{
+    this->ball->setSpeed(value);
+}
+
 void Game::prepareGame()
 {
     this->score.first = 0;
@@ -88,8 +103,6 @@ void Game::prepareGame()
     this->ball->randomVelocity(45);
     this->getPadle(LEFT)->setPosition(QPoint(0,board.height()/2.0));
     this->getPadle(RIGHT)->setPosition(QPoint(board.width()-1,board.height()/2.0));
-    this->getPadle(LEFT)->setSize(board.height()/8.0);
-    this->getPadle(RIGHT)->setSize(board.height()/8.0);
 }
 
 void Game::scorePoint()

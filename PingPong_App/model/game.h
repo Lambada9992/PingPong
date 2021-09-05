@@ -43,6 +43,10 @@ public:
 
     void shot(Side side);
 
+    void setPaddleSpeed(double value);
+    void setPaddleSize(double value);
+    void setBallSpeed(double value);
+
     QRect getBoard() const;
     QList<Paddle *> *getPadles() const;
     Ball *getBall() const;
