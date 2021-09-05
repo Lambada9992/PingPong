@@ -22,12 +22,10 @@ public:
     
 public slots:
     void singleplayerButtonClicked();
-    void multiplayerButtonClicked();
     void settingsButtonClicked();
 
 signals:
     void startSinglePlayer();
-    void showMultiplayerMenu();
     void showSettings();
 
 };
