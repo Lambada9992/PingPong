@@ -20,6 +20,10 @@ private:
     QPushButton *saveButton;
     QSpinBox *boardSizeXSpinBox;
     QSpinBox *boardSizeYSpinBox;
+    QSpinBox *ballSpeedSpinBox;
+    QSpinBox *paddleSpeedSpinBox;
+    QSpinBox *paddleSizeSpinBox;
+
 
 public:
     SettingsScene(Game *game, GuiView *parent = nullptr);

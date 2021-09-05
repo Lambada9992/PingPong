@@ -19,6 +19,11 @@ void Ball::setParent(Paddle *value)
     parent = value;
 }
 
+void Ball::setSpeed(double value)
+{
+    speed = value;
+}
+
 Ball::Ball(Game *game)
 {
     this->game = game;
