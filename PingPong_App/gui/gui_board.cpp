@@ -4,7 +4,7 @@
 
 Gui_board::Gui_board(Game *game, QObject *object, QGraphicsItem *parent) : QObject(object), QGraphicsRectItem(parent)
 {
-    setBrush(QColor(255, 0, 0, 127));
+    setBrush(QColor(0, 0, 0, 255));
     this->game = game;
 
     gui_ball = new Gui_ball(game->getBall(),

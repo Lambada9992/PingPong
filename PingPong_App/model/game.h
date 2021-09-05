@@ -33,6 +33,7 @@ private:
     TcpServer server;
     qintptr port = 1234;
 
+
 public:
     Game();
     ~Game();
@@ -57,6 +58,9 @@ public:
     Side getSide(Paddle *paddle);
     void setBoardSizeX(int value);
     void setBoardSizeY(int value);
+
+    QPair<int, int> getScore() const;
+
     void prepareGame();
     void setMaxScore(int value);
 
@@ -65,6 +69,7 @@ public:
     bool getIsFinished() const;
 
     void setIsFinished(bool value);
+
 
 private:
     void makeMoves(long double dt);

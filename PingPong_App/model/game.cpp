@@ -5,6 +5,11 @@
 #include <QKeyEvent>
 #include <QtMath>
 
+
+QPair<int, int> Game::getScore() const
+{
+    return score;
+}
 void Game::setMaxScore(int value)
 {
     maxScore = value;
@@ -23,6 +28,7 @@ bool Game::getIsFinished() const
 void Game::setIsFinished(bool value)
 {
     isFinished = value;
+
 }
 
 Game::Game():
