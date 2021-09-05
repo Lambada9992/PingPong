@@ -3,15 +3,28 @@
 #include <QMainWindow>
 #include <QCloseEvent>
 
+double GuiView::paddleWidth = 15;
+double GuiView::ballSize = 14;
+
+double GuiView::getPaddleWidth()
+{
+    return paddleWidth;
+}
+
+double GuiView::getBallSize()
+{
+    return ballSize;
+}
+
 GuiView::GuiView(Game &game,QWidget *parent) : QGraphicsView(parent)
 {
+    //properties
 
     this->game = &game;
 
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setAlignment(Qt::AlignTop|Qt::AlignLeft);
-    setFixedSize(500,500);
 
     this->mainMenuScene = new MainMenuScene(this->game,this);
     connect(this->mainMenuScene,SIGNAL(startSinglePlayer()),this,SLOT(startSinglePlayer()));
@@ -31,12 +44,11 @@ GuiView::GuiView(Game &game,QWidget *parent) : QGraphicsView(parent)
 
 void GuiView::startSinglePlayer()
 {
-    setFixedSize(gameScene->getGameSceneRect()->rect().width()+(2*game->getPadle(Game::LEFT)->getWidth()),gameScene->getGameSceneRect()->rect().height());
+    setFixedSize(
+                gameScene->getGameSceneRect()->rect().width()+1,
+                gameScene->getGameSceneRect()->rect().height()+1);
     this->setScene(gameScene);
     game->startGame();
-    //this->scale(1.5,1.5);
-    //setFixedSize((game->getBoard().width()+58)*1.5,(game->getBoard().height()+14)*1.5);
-
 }
 
 void GuiView::showMultiplayerMenu()
@@ -46,10 +58,12 @@ void GuiView::showMultiplayerMenu()
 
 void GuiView::showMainMenu()
 {
+    setFixedSize(500,500);
     this->setScene(this->mainMenuScene);
 }
 void GuiView::showSettings()
 {
+    setFixedSize(500,500);
     this->setScene(this->settingsScene);
 }
 
