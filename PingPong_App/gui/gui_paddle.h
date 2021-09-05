@@ -1,7 +1,7 @@
 #ifndef GUI_PADDLE_H
 #define GUI_PADDLE_H
 
-#include "model/paddle.h"
+#include "MODEL/game.h"
 #include <QGraphicsItem>
 
 
@@ -12,6 +12,7 @@ public:
     void updatePosition();
 private:
     Paddle *paddle;
+    Game::Side side;
 };
 
 #endif // GUI_PADDLE_H

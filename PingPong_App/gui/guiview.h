@@ -20,8 +20,17 @@ private:
     SettingsScene *settingsScene;
     GameScene *gameScene;
 
+private:// GUI Properties
+    static double paddleWidth;
+    static double ballSize;
+
+
 public:
     GuiView(Game& game,QWidget *parent = nullptr);
+
+    static double getPaddleWidth();
+    static double getBallSize();
+
 public slots:
     void startSinglePlayer();
     void showMultiplayerMenu();
