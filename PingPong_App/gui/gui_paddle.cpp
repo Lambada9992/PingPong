@@ -5,9 +5,8 @@ Gui_Paddle::Gui_Paddle(Paddle *paddle, QString color, QGraphicsItem *parent) : Q
 {
     this->paddle = paddle;
     updatePosition();
-    QPixmap *pic = new QPixmap(":/new/pics/"+ color +"_paddle.png");
-    this->setPixmap(pic->scaled(GuiView::getPaddleWidth(),(paddle->getSize())*2 + GuiView::getBallSize(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
-
+    this->color = color;
+    prepare();
 }
 
 void Gui_Paddle::updatePosition()
@@ -21,5 +20,10 @@ void Gui_Paddle::updatePosition()
         this->setPos(this->paddle->getPosition()-QPointF(0,paddle->getSize()) + QPointF(GuiView::getBallSize() + GuiView::getPaddleWidth(),GuiView::getPaddleWidth()));
     }
 
+}
 
+void Gui_Paddle::prepare()
+{
+    QPixmap *pic = new QPixmap(":/new/pics/"+ color +"_paddle.png");
+    this->setPixmap(pic->scaled(GuiView::getPaddleWidth(),(paddle->getSize())*2 + GuiView::getBallSize(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
 }
