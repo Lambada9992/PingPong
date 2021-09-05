@@ -5,15 +5,36 @@
 #include <QKeyEvent>
 #include <QtMath>
 
+
 QPair<int, int> Game::getScore() const
 {
     return score;
 }
+void Game::setMaxScore(int value)
+{
+    maxScore = value;
+}
+
+int Game::getMaxScore() const
+{
+    return maxScore;
+}
+
+bool Game::getIsFinished() const
+{
+    return isFinished;
+}
+
+void Game::setIsFinished(bool value)
+{
+    isFinished = value;
+
+}
 
 Game::Game():
-    board(0,0,800,600)
+    board(0,0,800,200),
+    maxScore(15)
 {
-    board.setRect(0,0,boardSizeX,boardSizeY);
     this->ball = new Ball(this);
     this->padles = new QList<Paddle *>();
     this->padles->append(new Paddle(this, QPointF(0,board.height()/2), board.height()/8));
@@ -24,10 +45,7 @@ Game::Game():
 
 void Game::startGame()
 {
-    board.setRect(0,0,boardSizeX,boardSizeY);
-    this->getPadle(Game::LEFT)->setSize(board.height()/8);
     this->getPadle(Game::LEFT)->setPosition(QPoint(0, board.height()/2));
-    this->getPadle(Game::RIGHT)->setSize(board.height()/8);
     this->getPadle(Game::RIGHT)->setPosition(QPoint(board.width()-1,board.height()/2));
     this->start();
 
@@ -47,7 +65,7 @@ void Game::startServer()
 
 void Game::stopServer()
 {
-    server;
+    server.close();
 }
 
 void Game::shot(Game::Side side)
@@ -87,12 +105,31 @@ void Game::shot(Game::Side side)
     this->ball->setParent(NULL);
 }
 
+void Game::setPaddleSpeed(double value)
+{
+    this->getPadle(LEFT)->setSpeed(value);
+    this->getPadle(RIGHT)->setSpeed(value);
+}
+
+void Game::setPaddleSize(double value)
+{
+    this->getPadle(LEFT)->setSize(value);
+    this->getPadle(RIGHT)->setSize(value);
+}
+
+void Game::setBallSpeed(double value)
+{
+    this->ball->setSpeed(value);
+}
+
 void Game::prepareGame()
 {
     this->score.first = 0;
     this->score.second = 0;
     this->ball->setPosition(this->board.center());
     this->ball->randomVelocity(45);
+    this->getPadle(LEFT)->setPosition(QPoint(0,board.height()/2.0));
+    this->getPadle(RIGHT)->setPosition(QPoint(board.width()-1,board.height()/2.0));
 }
 
 void Game::scorePoint()
@@ -105,9 +142,19 @@ void Game::scorePoint()
     qDebug()<< score << " " << this->ball->getPosition();
 }
 
+bool Game::checkScore()
+{
+    if(score.first>=maxScore || score.second>=maxScore){
+        isFinished = true;
+        return true;
+    }
+    return false;
+}
+
 void Game::run()
 {
     this->isLive = true;
+    this->isFinished = false;
     auto lastTime = std::chrono::high_resolution_clock::now();
     this->prepareGame();
     while (true) {
@@ -115,11 +162,15 @@ void Game::run()
         lastTime = std::chrono::high_resolution_clock::now();
         long double dtns = ((long double)std::chrono::duration_cast<std::chrono::nanoseconds>(dt).count())/1000000000;   //time in s
         makeMoves(dtns);
+        if(checkScore()){
+            break;
+        };
         emit updateGui();
         mutex.lock();
         if(!isLive)break;
         mutex.unlock();
     }
+    emit updateGui();
 }
 
 
@@ -163,12 +214,12 @@ Ball *Game::getBall() const
 
 void Game::setBoardSizeX(int value)
 {
-    boardSizeX = value;
+    board.setWidth(value);
 }
 
 void Game::setBoardSizeY(int value)
 {
-    boardSizeY = value;
+    board.setHeight(value);
 }
 
 Game::~Game()

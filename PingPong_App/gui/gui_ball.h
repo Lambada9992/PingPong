@@ -8,7 +8,7 @@
 class Gui_ball : public QGraphicsPixmapItem
 {
 public:
-    Gui_ball(Ball *ball,QPointF translation,QGraphicsItem *parent = nullptr);
+    Gui_ball(Ball *ball,QGraphicsItem *parent = nullptr);
     void updatePosition();
 
 private:

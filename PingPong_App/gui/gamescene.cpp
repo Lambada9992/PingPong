@@ -6,6 +6,17 @@ QGraphicsRectItem *GameScene::getGameSceneRect() const
     return gameSceneRect;
 }
 
+void GameScene::prepare()
+{
+    this->gameSceneRect->setRect(
+                -1,
+                -1,
+                game->getBoard().width()  + 2*GuiView::getPaddleWidth() + GuiView::getBallSize(),
+                game->getBoard().height() + 2*GuiView::getPaddleWidth() + GuiView::getBallSize()
+                );
+    guiBoard->prepare();
+}
+
 GameScene::GameScene(Game *game, GuiView *parent)
     : QGraphicsScene(reinterpret_cast<QObject *>(parent))
 {
@@ -14,13 +25,6 @@ GameScene::GameScene(Game *game, GuiView *parent)
 
     //bg patern and color
     setBackgroundBrush(QColor(0, 0, 0, 150));
-
-    this->gameSceneRect->setRect(
-                0,
-                0,
-                game->getBoard().width()  + 2*GuiView::getPaddleWidth() + GuiView::getBallSize(),
-                game->getBoard().height() + 2*GuiView::getPaddleWidth() + GuiView::getBallSize()
-                );
 
     this->addItem(gameSceneRect);
     int x,y,w,h;
@@ -47,4 +51,6 @@ GameScene::GameScene(Game *game, GuiView *parent)
 void GameScene::update()
 {
     score->setText(QString::number(game->getScore().first)+ ":" + QString::number(game->getScore().second));
+
+    prepare();
 }

@@ -36,6 +36,7 @@ public:
     Paddle *getParent() const;
     void setParent(Paddle *value);
 
+    void setSpeed(double value);
 };
 
 #endif // BALL_H

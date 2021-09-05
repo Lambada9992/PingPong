@@ -21,6 +21,12 @@ double Paddle::getWidth() const
     return width;
 }
 
+void Paddle::setSpeed(double value)
+{
+    speed = value;
+}
+
+
 Paddle::Paddle(Game *game, QPointF position, double size)
 {
     this->game = game;

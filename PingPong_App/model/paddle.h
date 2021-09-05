@@ -31,6 +31,7 @@ public:
     void setDirection(const Direction &value);
     void setSize(double value);
     double getWidth() const;
+    void setSpeed(double value);
 };
 
 #endif // PADDLE_H

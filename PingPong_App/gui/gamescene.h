@@ -24,7 +24,9 @@ private:
 public:
     explicit GameScene(Game *game,GuiView *parent = nullptr);
     QGraphicsRectItem *getGameSceneRect() const;
-private slots:
+
+    void prepare();
+public slots:
     void update();
 };
 

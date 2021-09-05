@@ -22,16 +22,17 @@ public:
 private:
     QRect board;
     bool isLive = false;
+    bool isFinished = false;
     QMutex mutex;
     Ball *ball;
     QList<Paddle *> *padles;
     QPair<int,int> score;
+    int maxScore;
 
     //NETWORK
     TcpServer server;
     qintptr port = 1234;
-    int boardSizeX = 800;
-    int boardSizeY = 600;
+
 
 public:
     Game();
@@ -45,6 +46,10 @@ public:
 
     void shot(Side side);
 
+    void setPaddleSpeed(double value);
+    void setPaddleSize(double value);
+    void setBallSpeed(double value);
+
     QRect getBoard() const;
     QList<Paddle *> *getPadles() const;
     Ball *getBall() const;
@@ -53,12 +58,23 @@ public:
     Side getSide(Paddle *paddle);
     void setBoardSizeX(int value);
     void setBoardSizeY(int value);
+
     QPair<int, int> getScore() const;
+
+    void prepareGame();
+    void setMaxScore(int value);
+
+    int getMaxScore() const;
+
+    bool getIsFinished() const;
+
+    void setIsFinished(bool value);
+
 
 private:
     void makeMoves(long double dt);
-    void prepareGame();
     void scorePoint();
+    bool checkScore();
 public slots:
     void interpreteMessage(QString message);
 
