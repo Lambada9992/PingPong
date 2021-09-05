@@ -21,6 +21,7 @@ private:
 
 public slots:
     void update();
+    void prepare();
 };
 
 #endif // GUI_BOARD_H

@@ -30,8 +30,6 @@ private:
     //NETWORK
     TcpServer server;
     qintptr port = 1234;
-    int boardSizeX = 800;
-    int boardSizeY = 200;
 
 public:
     Game();
@@ -53,9 +51,9 @@ public:
     Side getSide(Paddle *paddle);
     void setBoardSizeX(int value);
     void setBoardSizeY(int value);
+    void prepareGame();
 private:
     void makeMoves(long double dt);
-    void prepareGame();
     void scorePoint();
 public slots:
     void interpreteMessage(QString message);

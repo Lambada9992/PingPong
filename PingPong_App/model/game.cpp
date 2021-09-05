@@ -6,9 +6,8 @@
 #include <QtMath>
 
 Game::Game():
-    board(0,0,800,600)
+    board(0,0,800,200)
 {
-    board.setRect(0,0,boardSizeX,boardSizeY);
     this->ball = new Ball(this);
     this->padles = new QList<Paddle *>();
     this->padles->append(new Paddle(this, QPointF(0,board.height()/2), board.height()/8));
@@ -19,7 +18,6 @@ Game::Game():
 
 void Game::startGame()
 {
-    board.setRect(0,0,boardSizeX,boardSizeY);
     this->getPadle(Game::LEFT)->setSize(board.height()/8);
     this->getPadle(Game::LEFT)->setPosition(QPoint(0, board.height()/2));
     this->getPadle(Game::RIGHT)->setSize(board.height()/8);
@@ -42,7 +40,7 @@ void Game::startServer()
 
 void Game::stopServer()
 {
-    server;
+    server.close();
 }
 
 void Game::shot(Game::Side side)
@@ -88,6 +86,10 @@ void Game::prepareGame()
     this->score.second = 0;
     this->ball->setPosition(this->board.center());
     this->ball->randomVelocity(45);
+    this->getPadle(LEFT)->setPosition(QPoint(0,board.height()/2.0));
+    this->getPadle(RIGHT)->setPosition(QPoint(board.width()-1,board.height()/2.0));
+    this->getPadle(LEFT)->setSize(board.height()/8.0);
+    this->getPadle(RIGHT)->setSize(board.height()/8.0);
 }
 
 void Game::scorePoint()
@@ -158,12 +160,12 @@ Ball *Game::getBall() const
 
 void Game::setBoardSizeX(int value)
 {
-    boardSizeX = value;
+    board.setWidth(value);
 }
 
 void Game::setBoardSizeY(int value)
 {
-    boardSizeY = value;
+    board.setHeight(value);
 }
 
 Game::~Game()
