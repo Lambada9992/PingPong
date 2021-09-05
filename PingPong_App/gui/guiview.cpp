@@ -89,6 +89,10 @@ void GuiView::keyPressEvent(QKeyEvent *event)
     {
         this->game->shot(Game::LEFT);
         this->game->shot(Game::RIGHT);
+        if(game->getIsFinished()){
+            showMainMenu();
+            game->setIsFinished(false);
+        }
     }
         break;
     }
