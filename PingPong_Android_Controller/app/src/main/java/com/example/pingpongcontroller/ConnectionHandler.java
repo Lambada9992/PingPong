@@ -4,6 +4,13 @@ import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * Klasa odpowiedzialna za obsługę socketuTCP/połączenia internetowego
+ * Tworzy 3 wątki:
+ * Jeden do zarzącania connection handlerem oraz pozostałymi wątkami
+ * Jeden wątek do obsługi odczytu przychodzących infromacji
+ * Jeden wątek do obsługi wysyłanych informacji
+ */
 public class ConnectionHandler extends Thread{
 
     public enum Status{CONNECTED,DISCONNECTED}
@@ -21,6 +28,9 @@ public class ConnectionHandler extends Thread{
     Thread writerThread;
     Thread readerThread;
 
+    /**
+     * Implementacja intrrfejsu Runnable wykorzystywanego do przekazania metody jaka ma być wykonywana przez nowy wątek w tym wypadku czyania przychodzących wiadomości
+     */
     private final Runnable reader = ()->{
         while (!Thread.currentThread().isInterrupted()){
             try {
@@ -32,6 +42,9 @@ public class ConnectionHandler extends Thread{
         }
         this.close();
     };
+    /**
+     * Implementacja intrrfejsu Runnable wykorzystywanego do przekazania metody jaka ma być wykonywana przez nowy wątek w tym wypadku wysyłania wiadomości z outBuffera
+     */
     private final Runnable writer = ()->{
         while (!Thread.currentThread().isInterrupted()){
             try {
@@ -47,6 +60,11 @@ public class ConnectionHandler extends Thread{
         this.close();
     };
 
+    /**
+     * Konstruktor
+     * @param socket socket
+     * @param interpreter Interfejs zawieracjący implementację metody odpowiedzialnej za interpretacje przychodzących wiadomości
+     */
     public ConnectionHandler(Socket socket, ConnectionHandleInterpreter interpreter) {
         this.socket = socket;
         this.interpreter = interpreter;
@@ -58,6 +76,9 @@ public class ConnectionHandler extends Thread{
         }
     }
 
+    /**
+     * Metoda odpowiedzialna za działanie głównego wątka zarządzającego pozostałymi
+     */
     @Override
     public void run() {
         try {
@@ -95,6 +116,10 @@ public class ConnectionHandler extends Thread{
         }
     }
 
+    /**
+     * Metoda odpowiedzialna za umieszczenie wiadomości w bufferze które nastepnie sa wysyłąne po przez socket
+     * @param message
+     */
     public void write(String message){
         try {
             out.put(message);
@@ -103,17 +128,13 @@ public class ConnectionHandler extends Thread{
         }
     }
 
+    /**
+     * metoda służąca do zamknięcia całego connection Handlera
+     */
     public void close(){
         synchronized (this) {
             this.notify();
         }
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public Socket getSocket(){
-        return this.socket;
-    }
 }

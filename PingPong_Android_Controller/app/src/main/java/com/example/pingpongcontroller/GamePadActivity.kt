@@ -14,6 +14,9 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.widget.SwitchCompat
 
+/**
+ * Klasa odpowiedzialna za logikę ekranu kontrolera gry
+ */
 class GamePadActivity : AppCompatActivity(), SensorEventListener {
 
     private val TAG = "GamePadActivity"
@@ -28,6 +31,9 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
     lateinit var accelerometer: Sensor
     var isAccelerometerOn: Boolean = false
 
+    /**
+     * Metoda wywoływana przy stworzeniu activity ala konstruktor
+     */
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,11 +54,17 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
         bRotation.setOnTouchListener(rotationOnTouch)
     }
 
+    /**
+     * Metoda wywoływana przy zniszczeniu activity ala destruktor
+     */
     override fun onDestroy() {
         super.onDestroy()
         PingPongController.disconnect();
     }
 
+    /**
+     * Zmienna zawierająca metodę obsługującą naciśnięcie przycisku DOWN
+     */
     @SuppressLint("ClickableViewAccessibility")
     val downOnTouch: View.OnTouchListener = View.OnTouchListener { _, event ->
         if(event.action == MotionEvent.ACTION_DOWN) {
@@ -63,6 +75,9 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
         false
     }
 
+    /**
+     * Zmienna zawierająca metodę obsługującą naciśnięcie przycisku UP
+     */
     @SuppressLint("ClickableViewAccessibility")
     val upOnTouch: View.OnTouchListener = View.OnTouchListener { _, event ->
         if(event.action == MotionEvent.ACTION_DOWN) {
@@ -73,6 +88,9 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
         false
     }
 
+    /**
+     * Zmienna zawierająca metodę obsługującą naciśnięcie przycisku SHOT
+     */
     @SuppressLint("ClickableViewAccessibility")
     val shotOnTouch: View.OnTouchListener = View.OnTouchListener { _, event ->
         if(event.action == MotionEvent.ACTION_DOWN) {
@@ -81,6 +99,9 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
         false
     }
 
+    /**
+     * Zmienna zawierająca metodę obsługującą naciśnięcie przycisku Rotation
+     */
     @SuppressLint("ClickableViewAccessibility")
     val rotationOnTouch: View.OnTouchListener = View.OnTouchListener { _, event ->
         if(event.action == MotionEvent.ACTION_DOWN) {
@@ -93,6 +114,9 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
         false
     }
 
+    /**
+     * Metoda zwracająca któr strona/paletka jest aktualnie wybrana
+     */
     fun getSide(): PingPongController.Side {
         return when(sSide.isChecked){
             true -> PingPongController.Side.RIGHT
@@ -100,6 +124,9 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
+    /**
+     * Metoda obsługująca zmiany wskazań akcelerometru
+     */
     override fun onSensorChanged(event: SensorEvent?) {
         val gx = event?.values?.get(0)?:0.0f
         

@@ -8,6 +8,9 @@ import java.lang.IllegalArgumentException
 import java.net.ConnectException
 import java.net.Socket
 
+/**
+ * Singleton odpowiedzialny za całą logikę aplikacji
+ */
 object PingPongController : ConnectionHandler.ConnectionHandleInterpreter {
 
     var connectionHandler: ConnectionHandler? = null
@@ -24,6 +27,9 @@ object PingPongController : ConnectionHandler.ConnectionHandleInterpreter {
             "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
     private val IPV4_PATTERN: Pattern = Pattern.compile(IPV4_REGEX)
 
+    /**
+     * Metoda odpowiedzialna za wysłanie informacji o wystrzale przez daną paletkę z wykorzystaniem socketu TCP
+     */
     fun shot(side: Side){
         var message: String = ""
 
@@ -37,6 +43,9 @@ object PingPongController : ConnectionHandler.ConnectionHandleInterpreter {
         connectionHandler?.write(message)
     }
 
+    /**
+     * Metoda odpowiedzialna za przesłanie informacji przez socket TCP o ruchu użytkownika
+     */
     fun makeMove(side: Side,move: Move,press: Boolean){
         var message: String = ""
 
@@ -75,10 +84,18 @@ object PingPongController : ConnectionHandler.ConnectionHandleInterpreter {
         connectionHandler?.write(message)
     }
 
+    /**
+     * Metoda odpowiedzialna za interpretację przychodzącej wiadomości
+     */
     override fun interpretIncomingMessage(message: String?) {
 
     }
 
+    /**
+     * Metoda odpowiedzialna za nawiązanie połączenia TCP
+     * @param ip Ip na które ma zostać wykonana próba połączenia
+     * @param port Port na który ma zostać wykonana próba połączenia
+     */
     fun connect(ip: String,port: Int) {
         if (!IPV4_PATTERN.matcher(ip).matches()) throw Exception("Invalid IP")
 
@@ -97,6 +114,9 @@ object PingPongController : ConnectionHandler.ConnectionHandleInterpreter {
         }.start()
     }
 
+    /**
+     * metoda odpowiedzialna za rozłączenie połączenia TCP
+     */
     fun disconnect() {
         this.connectionHandler = connectionHandler?.run{
             close()
