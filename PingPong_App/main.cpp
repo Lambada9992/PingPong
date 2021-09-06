@@ -6,6 +6,11 @@
 
 #include <QTime>
 
+/**
+ * @brief main
+ * @author Marcin Bobinski, Marcin Korzeniowski
+ * @date 06.09.2021r.
+ */
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

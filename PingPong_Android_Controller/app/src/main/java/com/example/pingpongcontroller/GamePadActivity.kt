@@ -8,12 +8,15 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.widget.SwitchCompat
 
 class GamePadActivity : AppCompatActivity(), SensorEventListener {
+
+    private val TAG = "GamePadActivity"
 
     lateinit var sSide: SwitchCompat
     lateinit var bDown: Button
@@ -23,8 +26,7 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
 
     lateinit var sensorManager: SensorManager
     lateinit var accelerometer: Sensor
-    var fixRotation: Float? = null
-    var rotation: Float = 0.0f
+    var isAccelerometerOn: Boolean = false
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +34,7 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
         setContentView(R.layout.activity_game_pad)
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL)
 
         sSide = findViewById(R.id.sSide)
@@ -82,11 +84,9 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
     @SuppressLint("ClickableViewAccessibility")
     val rotationOnTouch: View.OnTouchListener = View.OnTouchListener { _, event ->
         if(event.action == MotionEvent.ACTION_DOWN) {
-            if (fixRotation != null){
-                fixRotation = rotation
-            }
+            isAccelerometerOn = true
         }else if (event.action == MotionEvent.ACTION_UP){
-            fixRotation = null
+            isAccelerometerOn = false
             PingPongController.makeMove(getSide(),PingPongController.Move.UP,false)
             PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,false)
         }
@@ -101,12 +101,15 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-        this.rotation = event?.values?.get(1)?:0.0f
-        if(fixRotation != null){
-            if( rotation - fixRotation!! > Math.toRadians(25.0)){
+        val gx = event?.values?.get(0)?:0.0f
+        
+        if(isAccelerometerOn){
+            if( gx > 9.0/3.0){
                 PingPongController.makeMove(getSide(),PingPongController.Move.UP,true)
-            }else if( rotation - fixRotation!! < -Math.toRadians(25.0)){
+                PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,false)
+            }else if( gx < -9.0/3.0){
                 PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,true)
+                PingPongController.makeMove(getSide(),PingPongController.Move.UP,false)
             }else{
                 PingPongController.makeMove(getSide(),PingPongController.Move.UP,false)
                 PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,false)
