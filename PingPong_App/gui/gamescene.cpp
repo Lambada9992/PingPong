@@ -17,6 +17,11 @@ void GameScene::prepare()
     guiBoard->prepare();
 }
 
+QLabel *GameScene::getScore() const
+{
+    return score;
+}
+
 GameScene::GameScene(Game *game, GuiView *parent)
     : QGraphicsScene(reinterpret_cast<QObject *>(parent))
 {
@@ -27,25 +32,37 @@ GameScene::GameScene(Game *game, GuiView *parent)
     setBackgroundBrush(QColor(0, 0, 0, 150));
 
     this->addItem(gameSceneRect);
-    int x,y,w,h;
-
-    score = new QLabel("0:0");
-    w = 30;
-    h = 30;
-    x = this->gameSceneRect->rect().width()/2 - w/2;
-    y = this->gameSceneRect->rect().height()/2 - h/2;
-    score->setGeometry(x,y,w,h);
-    QFont font = score->font();
-    font.setPointSize(10);
-    font.setBold(true);
-    score->setFont(font);
-    score->show();
-
-
     this->guiBoard = new Gui_board(game,this);
     this->addItem(this->guiBoard);
-    this->addWidget(score);
+
     connect(this->game,SIGNAL(updateGui()),this,SLOT(update()),Qt::BlockingQueuedConnection);
+
+    prepare();
+
+    int x,y,w,h;
+    score = new QLabel("0:0");
+    w = 200;
+    h = 30;
+    x = this->gameSceneRect->rect().width()/2 - w/2;
+    y = this->gameSceneRect->rect().height();
+
+    score->setGeometry(x,y,w,h);
+    QFont font = score->font();
+    font.setPointSize(20);
+    font.setBold(true);
+    score->setAlignment(Qt::AlignCenter);
+    score->setFont(font);
+    this->addWidget(score);
+
+
+    mainMenuButton = new QPushButton(QString("Back to Menu"));
+    w = 150;
+    h = 30;
+    x = this->gameSceneRect->rect().width() - w;
+    y = this->gameSceneRect->rect().height();
+    mainMenuButton->setGeometry(x,y,w,h);
+    connect(mainMenuButton,SIGNAL(clicked()),this,SLOT(mainMenuButtonClicked()));
+    addWidget(mainMenuButton);
 }
 
 void GameScene::update()
@@ -53,4 +70,9 @@ void GameScene::update()
     score->setText(QString::number(game->getScore().first)+ ":" + QString::number(game->getScore().second));
 
     prepare();
+}
+
+void GameScene::mainMenuButtonClicked()
+{
+    emit showMainMenu();
 }

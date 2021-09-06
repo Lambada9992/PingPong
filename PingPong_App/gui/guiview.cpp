@@ -34,6 +34,7 @@ GuiView::GuiView(Game &game,QWidget *parent) : QGraphicsView(parent)
     connect(this->settingsScene,SIGNAL(showMainMenu()),this,SLOT(showMainMenu()));
 
     this->gameScene = new GameScene(this->game,this);
+    connect(this->gameScene,SIGNAL(showMainMenu()),this,SLOT(showMainMenu()));
 
     showMainMenu();
 }
@@ -44,7 +45,7 @@ void GuiView::startSinglePlayer()
     gameScene->prepare();
     setFixedSize(
                 gameScene->getGameSceneRect()->rect().width()+1,
-                gameScene->getGameSceneRect()->rect().height()+1);
+                gameScene->getGameSceneRect()->rect().height()+1+gameScene->getScore()->height());
     this->setScene(gameScene);
     game->startGame();
 }
@@ -52,12 +53,12 @@ void GuiView::startSinglePlayer()
 
 void GuiView::showMainMenu()
 {
-    setFixedSize(500,500);
+    setFixedSize(645,495);
     this->setScene(this->mainMenuScene);
 }
 void GuiView::showSettings()
 {
-    setFixedSize(500,500);
+    setFixedSize(645,495);
     this->setScene(this->settingsScene);
 }
 

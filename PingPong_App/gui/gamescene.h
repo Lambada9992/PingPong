@@ -19,6 +19,7 @@ private:
     Gui_board *guiBoard;
     QGraphicsRectItem *gameSceneRect;
     QLabel *score;
+    QPushButton *mainMenuButton;
 
 
 public:
@@ -26,8 +27,13 @@ public:
     QGraphicsRectItem *getGameSceneRect() const;
 
     void prepare();
+    QLabel *getScore() const;
+signals:
+    void showMainMenu();
 public slots:
     void update();
+private slots:
+    void mainMenuButtonClicked();
 };
 
 #endif // MAINMENUSCENE_H

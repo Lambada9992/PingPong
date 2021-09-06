@@ -32,8 +32,8 @@ void Game::setIsFinished(bool value)
 }
 
 Game::Game():
-    board(0,0,800,200),
-    maxScore(15)
+    board(0,0,800,600),
+    maxScore(10)
 {
     this->ball = new Ball(this);
     this->padles = new QList<Paddle *>();

@@ -21,7 +21,7 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
 
     QGraphicsTextItem *widthText = new QGraphicsTextItem(QString("Szerokość:"));
     x = this->width()/2 - widthText->boundingRect().width()/2;
-    y = 4*m_scale;
+    y = 7*m_scale;
     widthText->setPos(x,y);
     addItem(widthText);
 
@@ -29,16 +29,19 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 5.5*m_scale;
+    y = 8.5*m_scale;
     boardSizeXSpinBox->setGeometry(x,y,w,h);
     boardSizeXSpinBox->setRange(0,2000);
     boardSizeXSpinBox->setValue(800);
+
+    boardSizeXSpinBox->setAccelerated(true);
+
     addWidget(boardSizeXSpinBox);
 
     QGraphicsTextItem *heightText = new QGraphicsTextItem(QString("Wysokość:"));
     title->setFont(titleFont);
     x = this->width()/2 - heightText->boundingRect().width()/2;
-    y = 7.5*m_scale;
+    y = 10.5*m_scale;
     heightText->setPos(x,y);
     addItem(heightText);
 
@@ -46,15 +49,16 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 9*m_scale;
+    y = 12*m_scale;
     boardSizeYSpinBox->setGeometry(x,y,w,h);
     boardSizeYSpinBox->setRange(0,1200);
     boardSizeYSpinBox->setValue(600);
+    boardSizeYSpinBox->setAccelerated(true);
     addWidget(boardSizeYSpinBox);
 
     QGraphicsTextItem *ballSpeedText = new QGraphicsTextItem(QString("Prędkość piłki:"));
     x = this->width()/2 - ballSpeedText->boundingRect().width()/2;
-    y = 11*m_scale;
+    y = 14*m_scale;
     ballSpeedText->setPos(x,y);
     addItem(ballSpeedText);
 
@@ -62,15 +66,16 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 12.5*m_scale;
+    y = 15.5*m_scale;
     ballSpeedSpinBox->setGeometry(x,y,w,h);
     ballSpeedSpinBox->setRange(0,1200);
     ballSpeedSpinBox->setValue(350);
+    ballSpeedSpinBox->setAccelerated(true);
     addWidget(ballSpeedSpinBox);
 
     QGraphicsTextItem *paddleSpeedText = new QGraphicsTextItem(QString("Prędkość paletki:"));
     x = this->width()/2 - paddleSpeedText->boundingRect().width()/2;
-    y = 14.5*m_scale;
+    y = 17.5 *m_scale;
     paddleSpeedText->setPos(x,y);
     addItem(paddleSpeedText);
 
@@ -78,15 +83,16 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 16*m_scale;
+    y = 19*m_scale;
     paddleSpeedSpinBox->setGeometry(x,y,w,h);
     paddleSpeedSpinBox->setRange(0,1200);
     paddleSpeedSpinBox->setValue(350);
+    paddleSpeedSpinBox->setAccelerated(true);
     addWidget(paddleSpeedSpinBox);
 
     QGraphicsTextItem *paddleSizeText = new QGraphicsTextItem(QString("Rozmiar paletki:"));
     x = this->width()/2 - paddleSizeText->boundingRect().width()/2;
-    y = 18*m_scale;
+    y = 21*m_scale;
     paddleSizeText->setPos(x,y);
     addItem(paddleSizeText);
 
@@ -94,15 +100,16 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 19.5*m_scale;
+    y = 22.5*m_scale;
     paddleSizeSpinBox->setGeometry(x,y,w,h);
     paddleSizeSpinBox->setRange(0,1200);
     paddleSizeSpinBox->setValue(100);
+    paddleSizeSpinBox->setAccelerated(true);
     addWidget(paddleSizeSpinBox);
 
     QGraphicsTextItem *maxScoreText = new QGraphicsTextItem(QString("Maksymalny wynik:"));
     x = this->width()/2 - maxScoreText->boundingRect().width()/2;
-    y = 21.5*m_scale;
+    y = 24.5*m_scale;
     maxScoreText->setPos(x,y);
     addItem(maxScoreText);
 
@@ -110,17 +117,18 @@ SettingsScene::SettingsScene(Game *game, GuiView *parent)
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 23*m_scale;
+    y = 26*m_scale;
     maxScoreSpinBox->setGeometry(x,y,w,h);
     maxScoreSpinBox->setRange(1,100);
     maxScoreSpinBox->setValue(15);
+    maxScoreSpinBox->setAccelerated(true);
     addWidget(maxScoreSpinBox);
 
     saveButton = new QPushButton(QString("Save Changes"));
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
-    y = 27.5*m_scale;
+    y = 28.5*m_scale;
     saveButton->setGeometry(x,y,w,h);
     connect(saveButton,SIGNAL(clicked()),this,SLOT(saveButtonClicked()));
     addWidget(saveButton);
