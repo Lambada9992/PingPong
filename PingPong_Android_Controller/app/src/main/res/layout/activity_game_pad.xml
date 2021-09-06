@@ -7,22 +7,24 @@
     tools:context=".GamePadActivity">
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="Left | Right"
-        app:layout_constraintBottom_toTopOf="@+id/sSide"
+        app:layout_constraintBottom_toTopOf="@+id/bUp"
         app:layout_constraintEnd_toEndOf="@+id/sSide"
-        app:layout_constraintStart_toStartOf="@+id/sSide" />
+        app:layout_constraintStart_toStartOf="@+id/sSide"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/sSide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
         android:id="@+id/bDown"
@@ -48,9 +50,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SHOT"
-        app:layout_constraintBottom_toTopOf="@+id/bUp"
+        app:layout_constraintBottom_toTopOf="@+id/bRotation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sSide" />
+
+    <Button
+        android:id="@+id/bRotation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="59dp"
+        android:text="Rotation"
+        app:layout_constraintBottom_toTopOf="@+id/bUp"
+        app:layout_constraintEnd_toEndOf="@+id/bShot"
+        app:layout_constraintStart_toStartOf="@+id/bShot" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

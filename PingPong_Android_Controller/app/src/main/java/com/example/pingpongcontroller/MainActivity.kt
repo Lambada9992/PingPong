@@ -25,11 +25,13 @@ class MainActivity : AppCompatActivity() {
         bConnection.setOnClickListener(connectOnClick)
     }
 
-
-
     private val connectOnClick: View.OnClickListener = View.OnClickListener {
         val ipAddress = etIp.text.toString()
-        PingPongController.connect(ipAddress,1234)
+        try {
+            PingPongController.connect(ipAddress,1234)
+        }catch (e: Exception){
+            return@OnClickListener
+        }
         startActivity(Intent(this,GamePadActivity::class.java))
     }
 
