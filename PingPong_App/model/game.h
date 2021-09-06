@@ -76,6 +76,7 @@ public:
      */
     void prepareGame();
 
+    //GETERY I SETERY
     void setPaddleSpeed(double value);
     void setPaddleSize(double value);
     void setBallSpeed(double value);
@@ -101,18 +102,39 @@ public:
 
 
 private:
+    /**
+     * @brief makeMoves Funkcja odpowiedzialna za wykonywanie ruchów w grze
+     * @param dt czas ruchów do wykonania
+     */
     void makeMoves(long double dt);
+    /**
+     * @brief scorePoint Metoda odpowiedzialna za przydzielenie punktów odpowiedniemu graczowi
+     */
     void scorePoint();
+    /**
+     * @brief checkScore metoda odpowiedzialna za sprawdzanie czy nie nastąpił koniec gry
+     * @return zwraca informację czy gra się zakończyła
+     */
     bool checkScore();
 public slots:
+    /**
+     * @brief interpreteMessage metoda odpowiedzialna za interpretację wiadomości przychodzących do aplikacji
+     * @param message wiadomość dostarczona przez TCP
+     */
     void interpreteMessage(QString message);
 
 signals:
+    /**
+     * @brief updateGui sygnał informujący Gui o tym że powinno zostać zaktualizowane
+     */
     void updateGui();
 
 
     // QThread interface
 protected:
+    /**
+     * @brief run wykonywanie ruchów w grze na oddzielnym wątku
+     */
     void run();
 };
 

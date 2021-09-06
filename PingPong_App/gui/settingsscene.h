@@ -10,6 +10,9 @@
 
 class GuiView;
 
+/**
+ * @brief The SettingsScene class Klasa odpowiedzilna za wyświetlanie sceny ustawień
+ */
 class SettingsScene : public QGraphicsScene
 {
     Q_OBJECT
@@ -30,7 +33,13 @@ public:
     SettingsScene(Game *game, GuiView *parent = nullptr);
 
 public slots:
+    /**
+     * @brief mainMenuButtonClicked metoda odpowiedzialna za obsługę naciśnięcia przycisku w GUI
+     */
     void mainMenuButtonClicked();
+    /**
+     * @brief saveButtonClicked metoda odpowiedzialna za obsługę naciśnięcia przycisku w GUI
+     */
     void saveButtonClicked();
 
 signals:

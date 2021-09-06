@@ -7,6 +7,9 @@ class Gui_Paddle;
 #include <qgraphicsscene.h>
 #include "QDebug"
 
+/**
+ * @brief The Gui_board class klasa odpowiedzialna za wyświetlanie pola rozgrywki
+ */
 class Gui_board :public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
@@ -20,7 +23,13 @@ private:
     QList<Gui_Paddle *> gui_padles;
 
 public slots:
+    /**
+     * @brief update metoda odpowiedzilna za aktualizację graficznego stanu rozgrywki
+     */
     void update();
+    /**
+     * @brief prepare metoda odpowiedzialna za przerysowanie elementów graficznych gry na nowo
+     */
     void prepare();
 };
 

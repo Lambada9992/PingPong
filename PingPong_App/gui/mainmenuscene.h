@@ -8,6 +8,9 @@
 
 class GuiView;
 
+/**
+ * @brief The MainMenuScene class klasa odpowiedzialna za scenę głównego menu aplikacji
+ */
 class MainMenuScene : public QGraphicsScene
 {
     Q_OBJECT
@@ -21,7 +24,13 @@ public:
     explicit MainMenuScene(Game *game,GuiView *parent = nullptr);
     
 public slots:
+    /**
+     * @brief singleplayerButtonClicked metoda odpowiedzialna za obsługę naciśnięcia przycisku w GUI
+     */
     void singleplayerButtonClicked();
+    /**
+     * @brief settingsButtonClicked  metoda odpowiedzialna za obsługę naciśnięcia przycisku w GUI
+     */
     void settingsButtonClicked();
 
 signals:
