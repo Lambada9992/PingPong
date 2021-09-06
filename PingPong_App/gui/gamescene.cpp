@@ -71,3 +71,8 @@ void GameScene::update()
 
     prepare();
 }
+
+void GameScene::mainMenuButtonClicked()
+{
+    emit showMainMenu();
+}

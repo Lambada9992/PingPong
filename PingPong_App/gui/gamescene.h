@@ -28,9 +28,12 @@ public:
 
     void prepare();
     QLabel *getScore() const;
-
+signals:
+    void showMainMenu();
 public slots:
     void update();
+private slots:
+    void mainMenuButtonClicked();
 };
 
 #endif // MAINMENUSCENE_H
