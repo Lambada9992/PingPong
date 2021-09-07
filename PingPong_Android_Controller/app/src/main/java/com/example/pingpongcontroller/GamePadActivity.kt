@@ -118,11 +118,11 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
         }
 
         if(sRotation.isChecked){
-            if( gx > 9.0/3.0){
+            if( gx > 9.0/4.5){
                 Log.d(TAG, "onSensorChanged: $gx")
                 PingPongController.makeMove(getSide(),PingPongController.Move.UP,true)
                 PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,false)
-            }else if( gx < -9.0/3.0){
+            }else if( gx < -9.0/4.5){
                 Log.d(TAG, "onSensorChanged: $gx")
                 PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,true)
                 PingPongController.makeMove(getSide(),PingPongController.Move.UP,false)
