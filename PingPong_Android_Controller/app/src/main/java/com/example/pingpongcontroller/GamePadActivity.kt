@@ -55,14 +55,6 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
     }
 
     /**
-     * Metoda wywoływana przy zniszczeniu activity ala destruktor
-     */
-    override fun onDestroy() {
-        super.onDestroy()
-        PingPongController.disconnect();
-    }
-
-    /**
      * Zmienna zawierająca metodę obsługującą naciśnięcie przycisku DOWN
      */
     @SuppressLint("ClickableViewAccessibility")
