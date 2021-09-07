@@ -29,7 +29,7 @@ MainMenuScene::MainMenuScene(Game *game, GuiView *parent)
 
 
     //singleplayer button
-    singleplayerButton = new QPushButton(QString("Single Player"));
+    singleplayerButton = new QPushButton(QString("Start Game"));
     w = this->width()/4;
     h = this->height()/18;
     x = this->width()/2 - w/2;
@@ -47,6 +47,15 @@ MainMenuScene::MainMenuScene(Game *game, GuiView *parent)
     connect(settingsButton,SIGNAL(clicked()),this,SLOT(settingsButtonClicked()));
     addWidget(settingsButton);
 
+    exitButton = new QPushButton(QString("Exit"));
+    w = this->width()/4;
+    h = this->height()/18;
+    x = this->width()/2 - w/2;
+    y = 18*m_scale;
+    exitButton->setGeometry(x,y,w,h);
+    connect(exitButton,SIGNAL(clicked()),this,SLOT(exitButtonClicked()));
+    addWidget(exitButton);
+
 }
 
 void MainMenuScene::singleplayerButtonClicked()
@@ -57,4 +66,8 @@ void MainMenuScene::singleplayerButtonClicked()
 void MainMenuScene::settingsButtonClicked()
 {
     emit showSettings();
+}
+void MainMenuScene::exitButtonClicked()
+{
+    exit(0);
 }

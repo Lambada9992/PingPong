@@ -14,6 +14,18 @@ void GameScene::prepare()
                 game->getBoard().width()  + 2*GuiView::getPaddleWidth() + GuiView::getBallSize(),
                 game->getBoard().height() + 2*GuiView::getPaddleWidth() + GuiView::getBallSize()
                 );
+    int x,y,w,h;
+    w = 200;
+    h = 30;
+    x = this->gameSceneRect->rect().width()/2 - w/2;
+    y = this->gameSceneRect->rect().height();
+    score->setGeometry(x,y,w,h);
+
+    w = 150;
+    h = 30;
+    x = this->gameSceneRect->rect().width() - w;
+    y = this->gameSceneRect->rect().height();
+    mainMenuButton->setGeometry(x,y,w,h);
     guiBoard->prepare();
 }
 
@@ -37,10 +49,12 @@ GameScene::GameScene(Game *game, GuiView *parent)
 
     connect(this->game,SIGNAL(updateGui()),this,SLOT(update()),Qt::BlockingQueuedConnection);
 
+    score = new QLabel("0:0");
+    mainMenuButton = new QPushButton(QString("Back to Menu"));
     prepare();
 
     int x,y,w,h;
-    score = new QLabel("0:0");
+
     w = 200;
     h = 30;
     x = this->gameSceneRect->rect().width()/2 - w/2;
@@ -55,7 +69,7 @@ GameScene::GameScene(Game *game, GuiView *parent)
     this->addWidget(score);
 
 
-    mainMenuButton = new QPushButton(QString("Back to Menu"));
+
     w = 150;
     h = 30;
     x = this->gameSceneRect->rect().width() - w;

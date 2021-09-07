@@ -20,6 +20,7 @@ private:
     QPushButton *singleplayerButton;
     QPushButton *multiplayerButton;
     QPushButton *settingsButton;
+    QPushButton *exitButton;
 public:
     explicit MainMenuScene(Game *game,GuiView *parent = nullptr);
     
@@ -32,6 +33,8 @@ public slots:
      * @brief settingsButtonClicked  metoda odpowiedzialna za obsługę naciśnięcia przycisku w GUI
      */
     void settingsButtonClicked();
+    void exitButtonClicked();
+
 
 signals:
     void startSinglePlayer();
