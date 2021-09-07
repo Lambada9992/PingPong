@@ -25,11 +25,11 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
     lateinit var bDown: Button
     lateinit var bUp: Button
     lateinit var bShot: Button
-    lateinit var bRotation: Button
+    lateinit var sRotation: SwitchCompat
+    var lastRotation = false
 
     lateinit var sensorManager: SensorManager
     lateinit var accelerometer: Sensor
-    var isAccelerometerOn: Boolean = false
 
     /**
      * Metoda wywoływana przy stworzeniu activity ala konstruktor
@@ -47,11 +47,10 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
         bDown = findViewById(R.id.bDown)
         bUp = findViewById(R.id.bUp)
         bShot = findViewById(R.id.bShot)
-        bRotation = findViewById(R.id.bRotation)
+        sRotation = findViewById(R.id.sRotation)
         bDown.setOnTouchListener(downOnTouch)
         bUp.setOnTouchListener(upOnTouch)
         bShot.setOnTouchListener(shotOnTouch)
-        bRotation.setOnTouchListener(rotationOnTouch)
     }
 
     /**
@@ -92,21 +91,6 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
     }
 
     /**
-     * Zmienna zawierająca metodę obsługującą naciśnięcie przycisku Rotation
-     */
-    @SuppressLint("ClickableViewAccessibility")
-    val rotationOnTouch: View.OnTouchListener = View.OnTouchListener { _, event ->
-        if(event.action == MotionEvent.ACTION_DOWN) {
-            isAccelerometerOn = true
-        }else if (event.action == MotionEvent.ACTION_UP){
-            isAccelerometerOn = false
-            PingPongController.makeMove(getSide(),PingPongController.Move.UP,false)
-            PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,false)
-        }
-        false
-    }
-
-    /**
      * Metoda zwracająca któr strona/paletka jest aktualnie wybrana
      */
     fun getSide(): PingPongController.Side {
@@ -121,15 +105,29 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
      */
     override fun onSensorChanged(event: SensorEvent?) {
         val gx = event?.values?.get(0)?:0.0f
-        
-        if(isAccelerometerOn){
+
+        when{
+            lastRotation && !sRotation.isChecked ->{
+                PingPongController.makeMove(getSide(),PingPongController.Move.UP,false)
+                PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,false)
+                lastRotation = false
+            }
+            !lastRotation && sRotation.isChecked ->{
+                lastRotation = true
+            }
+        }
+
+        if(sRotation.isChecked){
             if( gx > 9.0/3.0){
+                Log.d(TAG, "onSensorChanged: $gx")
                 PingPongController.makeMove(getSide(),PingPongController.Move.UP,true)
                 PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,false)
             }else if( gx < -9.0/3.0){
+                Log.d(TAG, "onSensorChanged: $gx")
                 PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,true)
                 PingPongController.makeMove(getSide(),PingPongController.Move.UP,false)
             }else{
+                Log.d(TAG, "onSensorChanged: $gx")
                 PingPongController.makeMove(getSide(),PingPongController.Move.UP,false)
                 PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,false)
             }
