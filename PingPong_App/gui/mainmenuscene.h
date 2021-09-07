@@ -17,12 +17,15 @@ private:
     QPushButton *singleplayerButton;
     QPushButton *multiplayerButton;
     QPushButton *settingsButton;
+    QPushButton *exitButton;
 public:
     explicit MainMenuScene(Game *game,GuiView *parent = nullptr);
     
 public slots:
     void singleplayerButtonClicked();
     void settingsButtonClicked();
+    void exitButtonClicked();
+
 
 signals:
     void startSinglePlayer();
