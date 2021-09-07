@@ -40,8 +40,10 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
         setContentView(R.layout.activity_game_pad)
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL)
+
+        Log.d(TAG, "CREATE: ")
 
         sSide = findViewById(R.id.sSide)
         bDown = findViewById(R.id.bDown)
@@ -105,6 +107,7 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
      */
     override fun onSensorChanged(event: SensorEvent?) {
         val gx = event?.values?.get(0)?:0.0f
+        //Log.d(TAG, "onSensorChanged: ${event?.values?.get(0)?:0.0f}, ${event?.values?.get(1)?:0.0f}, ${event?.values?.get(2)?:0.0f}")
 
         when{
             lastRotation && !sRotation.isChecked ->{
@@ -117,17 +120,15 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
             }
         }
 
+
         if(sRotation.isChecked){
-            if( gx > 9.0/4.5){
-                Log.d(TAG, "onSensorChanged: $gx")
+            if( gx > 3.0){
                 PingPongController.makeMove(getSide(),PingPongController.Move.UP,true)
                 PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,false)
-            }else if( gx < -9.0/4.5){
-                Log.d(TAG, "onSensorChanged: $gx")
+            }else if( gx < -3.0){
                 PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,true)
                 PingPongController.makeMove(getSide(),PingPongController.Move.UP,false)
             }else{
-                Log.d(TAG, "onSensorChanged: $gx")
                 PingPongController.makeMove(getSide(),PingPongController.Move.UP,false)
                 PingPongController.makeMove(getSide(),PingPongController.Move.DOWN,false)
             }
