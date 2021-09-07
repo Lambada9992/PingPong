@@ -43,7 +43,6 @@ class GamePadActivity : AppCompatActivity(), SensorEventListener {
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL)
 
-        Log.d(TAG, "CREATE: ")
 
         sSide = findViewById(R.id.sSide)
         bDown = findViewById(R.id.bDown)
